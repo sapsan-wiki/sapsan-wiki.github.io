@@ -1,3 +1,85 @@
 site_name: Sapsan Wiki
 theme:
-  name: material
+  name: material  
+  palette: 
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: red
+      accent: red
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode  
+  font:
+    text: Noto Sans
+
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji 
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true   
+  - pymdownx.smartsymbols  
+  - pymdownx.keys
+  - pymdownx.critic
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde  
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md  
+  - abbr
+  - admonition
+  - def_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - footnotes
+  - pymdownx.details
+  - pymdownx.tasklist:
+      custom_checkbox: true  
+
+features:
+  - content.tooltips
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  
+
+nav:
+  - index.md
+  - Overview:
+    - overview/installation.md
+    - overview/getting_started.md
+    - Examples:
+      - overview/examples/local_examples.md
+      - overview/examples/web_examples.md
+  - Tutorials:
+    - tutorials/custom_estimator.md
+    - tutorials/custom_docker.md
+    - tutorials/model_graph.md
+    - tutorials/mlflow.md
+    - tutorials/savenload.md
+    - tutorials/parallelgpu.md
+  - Reference:
+    - reference/structure.md
+    - reference/estimators.md
+    - reference/api.md
+    - reference/community.md
+  - cheat_sheet.md
