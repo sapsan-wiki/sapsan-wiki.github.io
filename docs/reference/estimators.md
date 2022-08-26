@@ -1,3 +1,7 @@
+---
+search:
+  boost: 2 
+---
 Sapsan has several models in its arsenal to get started.
 
 ## Convolution Neural Network (CNN)

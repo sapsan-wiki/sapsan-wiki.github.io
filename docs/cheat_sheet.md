@@ -1,3 +1,15 @@
+---
+search:
+  exclude: true
+
+tags:
+  - HTML5
+  - JavaScript
+  - CSS
+...
+
+`mike deploy --push --update-aliases 0.1 latest`
+: publishes a new wiki version
 
 [Hover me](https://example.com "I'm a tooltip!")
 
@@ -35,12 +47,6 @@ Curabitur feugiat, tortor non consequat
 finibus, justo purus auctor massa, nec
 semper lorem quam in massa.
 
-
-`Lorem ipsum dolor sit amet`
-
-:   Sed sagittis eleifend rutrum. Donec vitae suscipit est. Nullam tempus
-    tellus non sem sollicitudin, quis rutrum leo facilisis.
-
 Lorem footnote[^1] dolor sit amet, consectetur adipiscing another one[^2]
 [^1]: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 [^2]:
@@ -72,3 +78,21 @@ $$
 $$
 
 Also works as in latex inline $19 M_{\odot}$
+
+``` yaml
+theme:
+  features:
+    - content.code.annotate # (1)!
+```
+
+1.  :man_raising_hand: I'm a code annotation! I can contain `code`, __formatted
+    text__, images, ... basically anything that can be written in Markdown.
+
+``` py title="bubble_sort.py" hl_lines="2 3"
+def bubble_sort(items):
+    for i in range(len(items)):
+        for j in range(len(items) - 1 - i):
+            if items[j] > items[j + 1]:
+                items[j], items[j + 1] = items[j + 1], items[j]
+```    
+The `#!python range()` function is used to generate a sequence of numbers.

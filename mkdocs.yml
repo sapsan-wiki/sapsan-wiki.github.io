@@ -1,6 +1,11 @@
 site_name: Sapsan Wiki
+repo_url: https://github.com/pikarpov-LANL/Sapsan
+repo_name: Sapsan
 theme:
   name: material  
+  custom_dir: overrides
+  icon:
+    repo: fontawesome/brands/git-alt   
   palette: 
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
@@ -21,7 +26,16 @@ theme:
         name: Switch to light mode  
   font:
     text: Noto Sans
-
+  features:
+    - content.tooltips
+    - navigation.instant  
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - search.highlight
+    - search.share
+    - header.autohide
+    - content.code.annotate
 
 markdown_extensions:
   - pymdownx.superfences
@@ -35,6 +49,7 @@ markdown_extensions:
       linenums: true
   - pymdownx.tabbed:
       alternate_style: true   
+  - pymdownx.inlinehilite
   - pymdownx.smartsymbols  
   - pymdownx.keys
   - pymdownx.critic
@@ -52,10 +67,25 @@ markdown_extensions:
   - footnotes
   - pymdownx.details
   - pymdownx.tasklist:
-      custom_checkbox: true  
+      custom_checkbox: true   
 
-features:
-  - content.tooltips
+plugins:
+  - tags
+  - search
+
+extra:
+  version:
+    provider: mike
+    default: stable  
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/pikarpov-LANL
+      name: Platon Karpov on GitHub
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/pikarpov/
+      name: Platon Karpov on LinkedIn  
+
+copyright: Copyright &copy; 2019 - 2022 Tried National Security (Los Alamos National Laboratory), BSD
 
 extra_javascript:
   - javascripts/mathjax.js

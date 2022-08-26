@@ -1,3 +1,17 @@
+---
+tags:
+  - astro
+  - supernovae
+  - CCSN
+  - turbulence
+  - machine learning
+  - los alamos
+  - LANL
+  - ucsc
+hide:
+  - tags  
+---
+
 # Home
 
 Sapsan is a pipeline for Machine Learning (ML) based turbulence modeling. While turbulence is important in a wide range of mediums, the pipeline primarily focuses on astrophysical application. With Sapsan, one can create their own custom models or use either conventional or physics-informed ML approaches for turbulence modeling included with the pipeline ([estimators](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators)). For example, Sapsan features ML models in its set of tools to accurately capture the turbulent nature applicable to Core-Collapse Supernovae.
@@ -24,3 +38,8 @@ Provectus IT Press Release - March 9, 2021
 
 [*Machine Learning for Supernova Turbulence*](https://sinews.siam.org/Details-Page/machine-learning-for-supernova-turbulence) <br />
 Society for Industrial and Applied Mathematics (SIAM) News (CSE21) - March 4, 2021
+
+??? danger "License"
+    Sapsan has a BSD-style license, as found in the [LICENSE](https://github.com/pikarpov-LANL/Sapsan/blob/master/LICENSE) file.
+
+    © (or copyright) 2019. Triad National Security, LLC. All rights reserved. This program was produced under U.S. Government contract 89233218CNA000001 for Los Alamos National Laboratory (LANL), which is operated by Triad National Security, LLC for the U.S. Department of Energy/National Nuclear Security Administration. All rights in the program are reserved by Triad National Security, LLC, and the U.S. Department of Energy/National Nuclear Security Administration. The Government is granted for itself and others acting on its behalf a nonexclusive, paid-up, irrevocable worldwide license in this material to reproduce, prepare derivative works, distribute copies to the public, perform publicly and display publicly, and to permit others to do so.
