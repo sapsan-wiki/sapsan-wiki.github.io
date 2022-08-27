@@ -12,11 +12,11 @@ mlflow ui --host localhost --port 9000
 By default, Sapsan will keep the following structure in MLflow:
 
 - Train 1
-   - Evaluate 1
-   - Evaluate 2
+     * Evaluate 1
+      * Evaluate 2
 - Train 2
-   - Evaluate 1
-   - Evaluate 2
+      * Evaluate 1
+      * Evaluate 2
 
 where all evaluation runs are _nested_ under the trained run entry. This way all evaluations are grouped together under the model that was just trained.
 
@@ -28,29 +28,29 @@ Evaluation runs include the training model parameters and metrics to make it eas
 
 |Parameter|Train|Evaluate|
 |-----| :---: | :---: |
-|Everything passed to `ModelConfig()` <br/> (including new parameters passed to `kwargs`) | :steam_locomotive: | :steam_locomotive:|
-|`model - {parameter}` - device, logdir, lr, min_delta, <br/> min_lr, n_epochs, patience <br/> | :steam_locomotive: | :steam_locomotive:|
-|`data - {parameter}` - features, features_label, <br/> target, target_label, axis, path, path, shuffle | :steam_locomotive: | :steam_locomotive:|
-|`chkpnt - {parameter}` - initial_size, sample to size, <br/> batch_size, batch_num, time, time_granularity <br/> | :steam_locomotive: | :steam_locomotive:|
+|Everything passed to `ModelConfig()` <br/> (including new parameters passed to `kwargs`) | :material-check-circle: | :material-check-circle:|
+|`model - {parameter}` - device, logdir, lr, min_delta, <br/> min_lr, n_epochs, patience <br/> | :material-check-circle: | :material-check-circle:|
+|`data - {parameter}` - features, features_label, <br/> target, target_label, axis, path, path, shuffle | :material-check-circle: | :material-check-circle:|
+|`chkpnt - {parameter}` - initial_size, sample to size, <br/> batch_size, batch_num, time, time_granularity <br/> | :material-check-circle: | :material-check-circle:|
 
 
 Since _Train_ metrics are recorded for _Evaluate_ runs, they are prefixed as `train - {metric}`. Subsequently, all _Evaluate_ metrics are written as `eval - {metric}`
 
 Metrics|Train|Evaluate|
 |-----| :---: | :---: |
-|`eval - MSE Loss` - Mean Squared Error (if the target is provided)| | :steam_locomotive: |
-|`eval - KS Stat` - Kolmogorov-Smirnov Statistic (if the target is provided)| | :steam_locomotive: |
-|`train - final epoch` - final training epoch| :steam_locomotive: | :steam_locomotive: |
-|All model metrics `model.metrics()` <br/> (provided by Catalyst and PyTorch) | :steam_locomotive: | :steam_locomotive: |
-|Runtime| :steam_locomotive: | :steam_locomotive: |
+|`eval - MSE Loss` - Mean Squared Error (if the target is provided)| | :material-check-circle: |
+|`eval - KS Stat` - Kolmogorov-Smirnov Statistic (if the target is provided)| | :material-check-circle: |
+|`train - final epoch` - final training epoch| :material-check-circle: | :material-check-circle: |
+|All model metrics `model.metrics()` <br/> (provided by Catalyst and PyTorch) | :material-check-circle: | :material-check-circle: |
+|Runtime| :material-check-circle: | :material-check-circle: |
 
 |Artifacts|Train|Evaluate|
 |-----| :---: | :---: |
-|`model_details.txt` - model layer init & optimizer settings| :steam_locomotive: | |
-|`model_forward.txt` - Model.forward() function| :steam_locomotive: | |
-|`runtime_log.html` - loss vs. epoch training progress| :steam_locomotive: | |
-|`pdf_cdf.png` - Probability Density Function (PDF) & <br/> Cummulative Distribution Function (CDF) plots| | :steam_locomotive: |
-|`slices_plot.png` - 2D Spatial Distribution (slice snapshots)| | :steam_locomotive: |
+|`model_details.txt` - model layer init & optimizer settings | :material-check-circle: | |
+|`model_forward.txt` - Model.forward() function| :material-check-circle: | |
+|`runtime_log.html` - loss vs. epoch training progress| :material-check-circle: | |
+|`pdf_cdf.png` - Probability Density Function (PDF) & <br/> Cummulative Distribution Function (CDF) plots| | :material-check-circle: |
+|`slices_plot.png` - 2D Spatial Distribution (slice snapshots)| | :material-check-circle: |
 
 ## Adding extra parameters
 ### Before Training

@@ -6,9 +6,8 @@ Sapsan has several models in its arsenal to get started.
 
 ## Convolution Neural Network (CNN)
 
-<a href="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/cnn_model_graph.png">
-    <img align="right" src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/cnn_model_graph.png" alt="cnn_model_graph" width="300">
-</a>
+![CNN Model Graph](../assets/cnn_model_graph.png#only-light){ align=right : style="width:200px"}
+![CNN Model Graph](../assets/cnn_model_graph_dark.png#only-dark){ align=right : style="width:200px"}
 
 Example: [cnn_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/cnn_example.ipynb) <br>
 Estimator: [cnn3d_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/cnn/cnn3d_estimator.py)
@@ -24,9 +23,6 @@ where _D_in_ is the input dimension.
 
 As final layers, [ReLU](https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html) activation function is used and the data is [linearized](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html). An example model graph for the input data with the spatial dimensions of [16, 16, 16] split into 8 batches is provided below.
 
-<br>
-<br>
-
 ## Kernel Ridge Regression (KRR)
 
 Example: [krr_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/krr_example.ipynb) <br>
@@ -34,18 +30,20 @@ Estimator: [krr_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/maste
 
 We have included one of the classic regression-based methods used in machine learning - [Kernel Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.kernel_ridge.KernelRidge.html). The model has two hyperparameters to be tuned: regularization term `α` and full-width at half-max `σ`. KRR has the following form:
 
-*y*′ = *y*(*K* + *α* *I*)<sup> − 1</sup>*k*
+$$
+y^′ = y(K + \alpha I)^{− 1}k
+$$
 
 where *K* is the kernel, chosen to be the radial basis function (gaussian):
 
-*K*(*x*, *x*′) = exp( − \|\|*x* − *x*′\|\|<sup>2</sup> / 2*σ*<sup>2</sup>)
+$$
+K(x, x^′) = exp\left( -\frac{||x − x^′||^2}{2\sigma^2}\right)
+$$
 
+## Physics-Informed CNN for Turbulence Modeling (PIMLTurb)
 
-## Physics-Informed CNN for Turbulence Modeling
-
-<a href="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/pimlturb_model_graph.png">
-    <img align="right" src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/pimlturb_model_graph.png" alt="pimlturb_model_graph" width="300">
-</a>
+![PIMLturb Model Graph](../assets/pimlturb_model_graph.png#only-light){ align=right : style="width:200px"}
+![PIMLturb Model Graph](../assets/pimlturb_model_graph_dark.png#only-dark){ align=right : style="width:200px"}
 
 *[Accepted 2022, Astrophysical Journal (ApJ)](https://arxiv.org/abs/2205.08663)*
 
@@ -56,16 +54,10 @@ The estimator is based on [Physics-Informed Machine Learning for Modeling Turbul
 
 The method also utilizes a custom loss that combines statistical (Kolmogorov-Smirnov Statistic) and spatial (Smooth L1) losses. The full description can be found in the paper linked above.
 
-For the example included in Sapsan, the data included is from the same dataset as the publication, but it has been heavily sampled (down to 17<sup>3</sup>). To achieve comparable published results, the model will need to be trained for 3000-4000 epochs. 
+For the example included in Sapsan, the data included is from the same dataset as the publication, but it has been heavily sampled (down to 17^3^). To achieve comparable published results, the model will need to be trained for 3000-4000 epochs. 
 
-<p align="center">
- <a href="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/pimlturb_model_schematic.jpg">
-  <img src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/pimlturb_model_schematic.jpg" alt="cnn_model_schematic" width="300">
- </a>
-</p>
-
-<br>
-<br>
+![PIMLturb Model Schematic](../assets/pimlturb_model_schematic.png#only-light){style="width:400px"}
+![PIMLturb Model Schematic](../assets/pimlturb_model_schematic_dark.png#only-dark){style="width:400px"}
 
 ## Physics-Informed Convolutional Autoencoder (PICAE)
 
@@ -80,9 +72,4 @@ The model consists of 2 main parts:
 
 Thus, the latter force the CAE portion of the model to adjust to the curl of A to be 0. Through this, we are effectively enforcing the conservation of mass. A schematic of the model is shown below.
 
-<p align="center">
- <a href="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/PICAE.png">
-  <img src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/PICAE.png" alt="physics-informed cae" width="600">
- </a>
-</p>
-
+![Physics-Informed CAE](../assets/PICAE.png){style="width:600px"}

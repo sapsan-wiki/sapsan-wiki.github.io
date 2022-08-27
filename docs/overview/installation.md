@@ -9,7 +9,7 @@ Sapsan can be run on both cpu and gpu. Below are the requirements for each versi
 | CPU | torch>=1.9.0       | torchvision>=0.10.0       |
 | GPU | torch>=1.9.0+cu111 | torchvision>=0.10.0+cu111 |
 
-Please follow the instructions on [PyTorch](https://pytorch.org/get-started/locally/) to install either version. CUDA>=11.1 can be installed directly with PyTorch as well.
+Please follow the instructions on [PyTorch](https://pytorch.org/get-started/locally/) to install either version. `CUDA>=11.1` can be installed directly with PyTorch as well.
 
 ### 2a. Install via pip (recommended)
 ```

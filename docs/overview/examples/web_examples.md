@@ -12,7 +12,4 @@ Sapsan's GUI is powered by [streamlit](https://streamlit.io/). A short demo with
 
 Try it out on [sapsan.app](https://sapsan.app)
 
-<p align="center">
-  <img src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/sapsan_gui.png" alt="sapsan GUI" width="600">
-</p>
-
+![Sapsan GUI](/assets/sapsan_gui.png){ align=center }

@@ -9,7 +9,7 @@ sapsan test
 ```
 
 ### Running Examples
-To get started and familiarize yourself with the Jupyter Notebook interface, feel free to run the included examples ([CNN](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#convolution-neural-network), [PICAE](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#physics-informed-convolutional-autoencoder), or [PIMLTurb](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#physics-informed-cnn-for-turbulence-modeling) on 3D data, and [KRR](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#kernel-ridge-regression) on 2D data). To copy the examples, type:
+To get started and familiarize yourself with the Jupyter Notebook interface, feel free to run the included examples ([CNN](/reference/estimators/#convolution-neural-network-cnn), [PICAE](/reference/estimators/#physics-informed-convolutional-autoencoder-picae), or [PIMLTurb](/reference/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb) on 3D data, and [KRR](/reference/estimators/#kernel-ridge-regression-krr) on 2D data). To copy the examples, type:
 
 ```
 sapsan get_examples
@@ -50,7 +50,7 @@ sapsan get_examples
 streamlit run ./sapsan-examples/GUI/st_intro.py
 ```
 
-Learn more at [GUI Examples](https://github.com/pikarpov-LANL/Sapsan/wiki/local#gui-examples)
+Learn more at [GUI Examples](/overview/examples/local_examples/#gui-examples).
 
 ### Troubleshooting 
 

@@ -1,5 +1,10 @@
+# Model Graph
+
 ## How to construct a graph of the model
 This a page describing in detail how to construct nice-looking graphs of your model automatically.
+
+!!! bug
+    Temporarily doesn't work due to a compatability issue between ONNX and PyTorch>=1.12.0
 
 ## Example
 
@@ -20,7 +25,11 @@ model_graph(model = estimator.model, shape = shape_x)
 Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 
 <p align="center">
-  <img src="https://github.com/pikarpov-LANL/Sapsan/blob/images/docs/images/cnn_model_graph.png" alt="cnn_model_graph">
+  <img src="/assets/cnn_model_graph.png#only-light" alt="cnn_model_graph" width=200px>
+</p>
+
+<p align="center">
+  <img src="/assets/cnn_model_graph_dark.png#only-dark" alt="cnn_model_graph" width=200px>
 </p>
 
 ## Details
@@ -36,18 +45,15 @@ Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 
 ## API for model_graph
 
-<pre>
-sapsan.utils.plot.model_graph(<i>model, shape: np.array, transforms</i>)
-</pre>
-&nbsp; creates a graph of the ML model (needs graphviz to be installed)
+`sapsan.utils.plot.model_graph(<i>model, shape: np.array, transforms</i>)`
 
-&nbsp; The method is based on [hiddenlayer](https://github.com/waleedka/hiddenlayer) originally written by Waleed Abdulla.
+: Creates a graph of the ML model (needs graphviz to be installed). The method is based on [hiddenlayer](https://github.com/waleedka/hiddenlayer) originally written by Waleed Abdulla.
 
 `Parameters`
 
-* model (object) - initialized pytorch or tensorflow model
-* shape (np.array) - shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1
-* transforms (list[methods]) - a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*). Default:
+: model (object) - initialized pytorch or tensorflow model
+: shape (np.array) - shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1
+: transforms (list[methods]) - a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*). Default:
 ```python
 > import sapsan.utils.hiddenlayer as hl
 > transforms = [
@@ -65,10 +71,8 @@ sapsan.utils.plot.model_graph(<i>model, shape: np.array, transforms</i>)
 
 `Return`
 
-&nbsp; graph of a model
+: graph of a model
 
 `Return type`
 
-&nbsp; graphviz.Digraph object
-
-<br/>
+: graphviz.Digraph object

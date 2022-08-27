@@ -1,21 +1,8 @@
 # API Reference
 
-The following page is organized based on the method types. Feel free to jump through the navigation.
+The following page is organized based on the method types. Feel free to jump through the navigation on the right -->
 
-* [Glossary](glossary)
-</br>
-
-* [Train/Evaluate](#trainevaluate)
-* [Estimators](#estimators)
-* [Data loaders](#data-loaders)
-  * [Data Manipulation](#data-manipulation)
-  * [Filter](#filter)
-* [Backend (Tracking)](#backend-tracking)
-* [Plotting](#plotting)
-* [Physics](#physics)
-
-
-# Glossary
+## Glossary
 | Variable | Definition |
 | -------- | ---------- |
 | N        | # of Batches |
@@ -27,15 +14,14 @@ The following page is organized based on the method types. Feel free to jump thr
 |H<sub>b</sub> | Batch height (y) |
 |W<sub>b</sub> | Batch width (x) |
 
-# Train/Evaluate
+## Train/Evaluate
 
-<pre>
-<b>CLASS</b> sapsan.lib.experiments.train.Train(<i>model: Estimator, data_parameters: dict, backend = FakeBackend(), show_log = True, run_name = 'train'</i>)
-</pre>
+`CLASS sapsan.lib.experiments.train.Train(model: Estimator, data_parameters: dict, backend = FakeBackend(), show_log = True, run_name = 'train')`
 
-&nbsp; call Train to set up your run
+: call Train to set up your run
 
 `Parameters`
+
 * __model (object)__ - model to use for training
 * __data_parameters (dict)__ - data parameters from the data loader, necessary for tracking
 * __backend (object)__ - backend to track the experiment. Default *FakeBackend()*
@@ -90,7 +76,7 @@ sapsan.lib.experiments.evaluate.Evaluate.run()
 
 <br/>
 
-# Estimators
+## Estimators
 
 <pre>
 <b>CLASS</b> sapsan.lib.estimator.CNN3d(<i>loaders: dict, config=CNN3dConfig(), model=CNN3dModel()</i>)
@@ -341,7 +327,7 @@ sapsan.lib.estimator.load_sklearn_estimator.load(<i>path: str, estimator, load_s
 
 <br/>
 
-# Data Loaders
+## Data Loaders
 <pre>
 <b>CLASS</b> sapsan.lib.data.hdf5_dataset.HDF5Dataset(<i> path: str, features: List[str], target: List[str], checkpoints: List[int], batch_size: int = None, input_size: int = None, sampler: Optional[Sampling] = None, time_granularity: float = 1, features_label: Optional[List[str]] = None, target_label: Optional[List[str]] = None, flat: bool = False, shuffle: bool=False, train_fraction = None</i>)
 </pre>
@@ -427,7 +413,7 @@ sapsan.lib.data.data_functions.get_loader_shape()
 
 <br/>
 
-# Data Manipulation
+## Data Manipulation
 <pre>
 <b>CLASS</b> sapsan.lib.data.sampling.EquidistantSampling(<i>target_dim</i>)
 </pre> 
@@ -541,7 +527,7 @@ sapsan.utils.shapes.slice_of_cube(<i>data: np.ndarray, feature: Optional[int] = 
 
 <br/>
 
-# Filter
+## Filter
 
 <pre>
 sapsan.utils.filter.spectral(<i>im: np.ndarray, fm: int</i>)
@@ -608,7 +594,7 @@ sapsan.utils.filter.gaussian(<i>im: np.ndarray, sigma</i>)
 
 <br/>
 
-# Backend (Tracking)
+## Backend (Tracking)
 
 <pre>
 <b>CLASS</b> sapsan.lib.backends.mlflow.MLflowBackend(<i>name, host, port</i>)
@@ -702,7 +688,7 @@ pass to `train` in order to disable backend (tracking)
 
 <br/>
 
-# Plotting
+## Plotting
 
 <pre>
 sapsan.utils.plot.plot_params()
@@ -875,7 +861,7 @@ sapsan.utils.plot.model_graph(<i>model, shape: np.array, transforms</i>)
 
 <br/>
 
-# Physics
+## Physics
 
 <pre>
 sapsan.utils.physics.ReynoldsStress(<i>u, filt, filt_size, only_x_components=False</i>)

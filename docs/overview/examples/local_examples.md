@@ -1,7 +1,7 @@
 # Built-in Examples
 ## Jupyter Notebook Examples
 
-You can run the included examples ([CNN](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#convolution-neural-network) or [PICAE](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#physics-informed-convolutional-autoencoder) on 3D data, and [KRR](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators#kernel-ridge-regression) on 2D data). To copy the examples, type:
+You can run the included examples ([CNN](/reference/estimators/#convolution-neural-network-cnn), [PICAE](/reference/estimators/#physics-informed-convolutional-autoencoder-picae), or [PIMLTurb](/reference/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb) on 3D data, and [KRR](/reference/estimators/#kernel-ridge-regression-krr) on 2D data). To copy the examples, type:
 
 ```
 sapsan get_examples
@@ -17,16 +17,16 @@ jupyter notebook ./sapsan_examples/cnn_example.ipynb
 In order to try out Sapsan's GUI, start a streamlit instance to open in a browser. After the examples have been compied into your working directory as described above, you will be able to find the GUI example. The entry point:
 
 ```
-streamlit run ./sapsan_examples/GUI/st_intro.py
+streamlit run ./sapsan_examples/GUI/Welcome.py
 ```
 
-The scripts for the pages you see ([welcome](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/st_welcome.py) and [examples](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/st_cnn3d.py)) are located in the subsequent directory: `./sapsan_examples/GUI/pages/`. 
+The scripts for the pages you see ([welcome](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/Welcome.py) and [examples](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/Examples.py)) are located in the subsequent directory: `./sapsan_examples/GUI/pages/`. 
 
-If you want to build your own demo, then look into [st_cnn3d.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/st_cnn3d.py) to get started. Ideally, you would only need to import your `Estimator`, `EstimatorConfig`, `EstimatorModel` and adjust the `run_experiment()` function, which has a nearly identical setup to a standard Sapsan's jupyter notebook interface.
+If you want to build your own demo, then look into [Examples.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/Welcome.py) to get started. Ideally, you would only need to import your `Estimator`, `EstimatorConfig`, `EstimatorModel` and adjust the `run_experiment()` function, which has a nearly identical setup to a standard Sapsan's jupyter notebook interface.
 
 ## Sample Data
 
-The [data](sapsan/examples/data/t0) for the CNN and KRR examples has been sourced from [JHTDB](http://turbulence.pha.jhu.edu/). Specifically the [Forced MHD Dataset](http://turbulence.pha.jhu.edu/Forced_MHD_turbulence.aspx) (1024<sup>3</sup>) has been used as a starting point.
+The [data](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/data/cnn_krr/t0) for the CNN and KRR examples has been sourced from [JHTDB](http://turbulence.pha.jhu.edu/). Specifically the [Forced MHD Dataset](http://turbulence.pha.jhu.edu/Forced_MHD_turbulence.aspx) (1024<sup>3</sup>) has been used as a starting point.
 
 |Data|Description|
 |---|---|

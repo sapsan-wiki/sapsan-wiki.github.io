@@ -5,17 +5,17 @@ Sapsan makes it easy to get started on designing your own ML model layer-by-laye
 ## Command-line Interface (CLI)
 Here is the easiest way to get started, where you should replace `{name}` with your custom project name.
 
-```shell script
+```shell
 sapsan create -n {name}
 ```
 
 This will create the full structure for your project, but in a template form. You will primarily focus on the designing your ML model (estimator). You will find the template for it in
 
-```shell script
+```shell
 {name}/{name}_estimator.py
 ```
 
-The template is structured to utilize a custom backend `sapsan.lib.estimator.cnn.pytorch_estimator`, hence it revolves around using PyTorch. In the template, you will define the layers your want to use, the order in which they should be executed, and a few custom model parameters (Optimizer, Loss Function, Scheduler). Since we are talking about PyTorch, refer to its [API to define your layers](https://pytorch.org/docs/stable/nn.html).
+The template is structured to utilize a custom backend `sapsan.lib.estimator.torch_backend.py`, hence it revolves around using PyTorch. In the template, you will define the layers your want to use, the order in which they should be executed, and a few custom model parameters (Optimizer, Loss Function, Scheduler). Since we are talking about PyTorch, refer to its [API to define your layers](https://pytorch.org/docs/stable/nn.html).
 
 ## Estimator Template
 
@@ -129,12 +129,12 @@ class {name_upper}(TorchBackend):
 
 For majority of applications, you won't need to touch Catalyst Runner settings, which located in `torch_backend.py`. However, in case you would like to dig further into more unique loss functions, optimizers, data distribution setups, then you can copy the `torch_backend.py` via `--get_torch_backend` or shorthand `--gtb` flag during the creation of the project:
 
-```shell script
+```shell
 sapsan create --gtb -n {name}
 ```
 or just copy it to your current directory by:
 
-```shell script
+```shell
 sapsan gtb
 ```
 
@@ -144,7 +144,7 @@ As for runner adjustments to parallele your training, Sapsan's Wiki includes a p
 
 ### Loss
 
-Catalyst includes a more extensive list of "losses" or "criterions" than the standard PyTorch. Their implementations might require to include some extra `Callback`s to be specified in the runner ([Criterion Documentation](https://catalyst-team.github.io/catalyst/api/contrib.html#criterion)). Please refer to Catalyst examples to create your own loss functions.
+Catalyst includes a more extensive list of *losses*, i.e. *criterions*, than the standard PyTorch. Their implementations might require to include some extra `Callback`s to be specified in the runner ([Criterion Documentation](https://catalyst-team.github.io/catalyst/api/contrib.html#criterion)). Please refer to Catalyst examples to create your own loss functions.
 
 ### Optimizer
 
