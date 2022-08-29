@@ -1,3 +1,10 @@
+---
+search:
+  boost: 10
+---
+
+# Getting Started
+
 ## Command Line Interface (CLI) & Jupyter Notebooks
 
 CLI allows users to create new projects leveraging the structure and abstractions of Sapsan providing a unified interface of interaction with the experiments. In addition, you can test your installation and play around with a few included examples.

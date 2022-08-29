@@ -19,7 +19,7 @@ Even though all Sapsan estimators have `load` method, you can use a dummy estima
 
 
 ### PyTorch
-Import [load_estimator()](https://github.com/pikarpov-LANL/Sapsan/wiki/API-Reference#estimators) to load your  PyTorch model. You can pass new ModelConfig() parameters as well if you intend to continue training your model.
+Import [load_estimator()](/reference/api/#load_estimator) to load your  PyTorch model. You can pass new ModelConfig() parameters as well if you intend to continue training your model.
 
 ```python
 from sapsan.lib.estimator import load_estimator
@@ -32,7 +32,7 @@ loaded_estimator = load_estimator.load({path_to_model},
 ```
 
 ### Sklearn
-Sklearn uses a different interface, so you will need to call [load_sklearn_estimator()](https://github.com/pikarpov-LANL/Sapsan/wiki/API-Reference#estimators)
+Sklearn uses a different interface, so you will need to call [load_sklearn_estimator()](/reference/api/#load_sklearn_estimator)
 
 ```python
 from sapsan.lib.estimator import load_sklearn_estimator

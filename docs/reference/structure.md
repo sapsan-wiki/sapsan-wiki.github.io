@@ -1,3 +1,4 @@
+# Structure
 ## Dependencies
 
 Sapsan is a python-based framework. Dependencies can be associated with logical modules of the project. The core module does not have any particular dependencies as all classes are implemented using native Python. Lib modules relying heavily on PyTorch with a Catalyst wrapper, as well as scikit-learn for regression-based ML models. CLI module depends on the click library for implementing command line interfaces.

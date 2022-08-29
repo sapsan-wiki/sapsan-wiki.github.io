@@ -35,7 +35,10 @@ theme:
     - navigation.tracking
     - navigation.sections
     - navigation.top
+    - navigation.tabs 
+    - navigation.tabs.sticky       
     - search.highlight
+    - search.suggest
     - search.share
     - header.autohide
     - content.code.annotate    
@@ -102,23 +105,26 @@ extra_javascript:
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js  
 
 nav:
-    - Home: index.md
-    - Overview:
-      - overview/installation.md
-      - overview/getting_started.md
-      - Examples:
-        - overview/examples/local_examples.md
-        - overview/examples/web_examples.md
-    - Tutorials:
-      - tutorials/custom_estimator.md
-      - tutorials/custom_docker.md
-      - tutorials/model_graph.md
-      - tutorials/mlflow.md
-      - tutorials/savenload.md
-      - tutorials/parallelgpu.md
-    - Reference:
-      - reference/structure.md
-      - reference/estimators.md
-      - reference/api.md
-      - reference/community.md
-    - cheat_sheet.md
+    - Home: 
+      - index.md
+      - Overview:
+        - overview/installation.md
+        - overview/getting_started.md
+        - Examples:
+          - overview/examples/local_examples.md
+          - overview/examples/web_examples.md
+      - Tutorials:
+        - tutorials/custom_estimator.md
+        - tutorials/custom_docker.md
+        - tutorials/model_graph.md
+        - tutorials/mlflow.md
+        - tutorials/savenload.md
+        - tutorials/parallelgpu.md
+      - Technical Details:
+        - reference/estimators.md
+        - reference/structure.md                      
+      - Other: 
+        - reference/community.md
+        - cheat_sheet.md        
+    - API Reference:
+        - reference/api.md          

@@ -8,6 +8,8 @@ tags:
   - CSS
 ...
 
+# Cheat-Sheet
+
 `mike deploy --push --update-aliases 0.1 latest`
 : publishes a new wiki version
 

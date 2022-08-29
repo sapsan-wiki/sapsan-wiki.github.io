@@ -37,7 +37,7 @@ Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 `shape` of the input data is in the format [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>]. You can either grab it from the loader as shown above or provide your own, as long as the number of channels C<sub>in</sub> matches the data your model was initialized with.
   
 
-`transforms` allow you to adjust the graph to your liking. For example, they can allow you to combine layers to be displayed in a single box, instead of separate. Please refer to the [API of model_graph](#API-for-model_graph) to see what options are available for transformations.
+`transforms` allow you to adjust the graph to your liking. For example, they can allow you to combine layers to be displayed in a single box, instead of separate. Please refer to the [API of model_graph](/reference/api/#model_graph) to see what options are available for transformations.
 
 ## Limitations
 

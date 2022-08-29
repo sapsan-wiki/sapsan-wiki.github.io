@@ -10,14 +10,14 @@ If you would like to contribute directly, then a [Pull Request](https://github.c
 ## Adding a Model
 You would like to contribute to Sapsan's 'model zoo'? That's great! Here are the steps to do so
 1. Create a new folder under `sapsan/lib/estimator` with the name to reflect your model (`custom_model` for now).
-2. Place your python script with the model into that folder, adhering to the format outlined in the template (see [Custom Estimator](https://github.com/pikarpov-LANL/Sapsan/wiki/Custom-Estimator) for details)
+2. Place your python script with the model into that folder, adhering to the format outlined in the template (see [Custom Estimator](/tutorials/custom_estimator/) for details)
    * make sure you initialize the model with `sapsan/lib/estimator/custom_model/__init__.py`
    * add to `sapsan/lib/estimator/__init__.py` a line to access your model, such as
 ```python
 from .custom_model.custom_model import Custom_Model, Custom_ModelConfig
 ```
 3. Set up a Jupyter notebook example and include it under `sapsan/examples`. Make sure the example data is either randomly generated, provided in a small batch, or can be auto-downloaded.
-4. Write a short description of your model for the [Estimators'](https://github.com/pikarpov-LANL/Sapsan/wiki/Estimators) page on the Wiki. It is a good idea to provide a graph to show the structure of your model ([graph example](https://github.com/pikarpov-LANL/Sapsan/wiki/Model-Graph)), along with the links to any publications of the model if such exist.
+4. Write a short description of your model for the [Estimators'](/reference/estimators/) page on the Wiki. It is a good idea to provide a graph to show the structure of your model ([graph example](/tutorials/model_graph/)), along with the links to any publications of the model if such exist.
 5. Pull Request it!
 
 Once approved, your model will be included in automatic testing on _push_ for all future Sapsan releases.

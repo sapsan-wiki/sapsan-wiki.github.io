@@ -1,7 +1,10 @@
 ---
 search:
-  boost: 2 
+  boost: 15
 ---
+
+# Estimators
+
 Sapsan has several models in its arsenal to get started.
 
 ## Convolution Neural Network (CNN)

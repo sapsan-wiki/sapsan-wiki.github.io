@@ -1,3 +1,8 @@
+---
+search:
+  boost: 5
+---
+
 # Custom Estimator
 
 Sapsan makes it easy to get started on designing your own ML model layer-by-layer.
@@ -140,7 +145,7 @@ sapsan gtb
 
 For [`runner` types](https://catalyst-team.github.io/catalyst/api/runners.html) and extensive options please refer to [Catalyst Documentation](https://catalyst-team.github.io/catalyst/index.html).
 
-As for runner adjustments to parallele your training, Sapsan's Wiki includes a page on [Parallel GPU Training](https://github.com/pikarpov-LANL/Sapsan/wiki/parallel-GPU-Training).
+As for runner adjustments to parallele your training, Sapsan's Wiki includes a page on [Parallel GPU Training](/tutorials/parallelgpu/).
 
 ### Loss
 

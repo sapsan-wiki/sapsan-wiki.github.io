@@ -1,3 +1,9 @@
+---
+search:
+  boost: 5
+---
+# Installation
+
 ## Install Sapsan
 
 ### 1. Install PyTorch (prerequisite)

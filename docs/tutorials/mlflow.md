@@ -1,3 +1,8 @@
+---
+search:
+  boost: 5
+---
+
 # MLflow Tracking
 
 ## Default MLflow Tracking in Sapsan
@@ -10,6 +15,8 @@ mlflow ui --host localhost --port 9000
 
 ### Structure
 By default, Sapsan will keep the following structure in MLflow:
+
+
 
 - Train 1
      * Evaluate 1
@@ -112,4 +119,4 @@ backend.resume(run_id = eval.run_id)
 backend.log_metric('new_metric', new_metric) #or use backend.log_parameter() or backend.log_artifact()
 backend.end()
 ```
-Feel free to review the full [API Reference: Backend (Tracking)](https://github.com/pikarpov-LANL/Sapsan/wiki/API-Reference#backend-tracking) for the full description of MLflow-related functions built into Sapsan. 
+Feel free to review the full [API Reference: Backend (Tracking)](/reference/api/#mlflowbackend) for the full description of MLflow-related functions built into Sapsan. 

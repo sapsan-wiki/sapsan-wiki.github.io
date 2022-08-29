@@ -1,3 +1,8 @@
+---
+search:
+  boost: 5
+---
+
 # Custom Docker
 
 ![Docker](/assets/docker_logo2.png){ align=center }
