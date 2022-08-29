@@ -16,32 +16,35 @@ The following page is organized based on the method types. Feel free to jump thr
 
 ## Train/Evaluate
 
-`CLASS sapsan.lib.experiments.train.Train(model: Estimator, data_parameters: dict, backend = FakeBackend(), show_log = True, run_name = 'train')`
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.experiments.train.Train(model: Estimator, data_parameters: dict, backend = FakeBackend(), show_log = True, run_name = 'train')`
 
-: call Train to set up your run
+: call Train to set up your run    
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __model (object)__ - model to use for training
-* __data_parameters (dict)__ - data parameters from the data loader, necessary for tracking
-* __backend (object)__ - backend to track the experiment. Default *FakeBackend()*
-* __show_log (bool)__ - show the loss vs. epoch progress plot (it will be save in mlflow in either case). Default *True*
-* __run_name (str)__ - 'run name' tag as recorded under MLflow. Default *train*
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `model`   | object | model to use for training| |
+    | <nobr>`data_parameters`</nobr> | dict | data parameters from the data loader, necessary for tracking | |
+    | `backend` | object | backend to track the experiment | FakeBackend() |
+    | `show_log`| bool | show the loss vs. epoch progress plot (it will be save in mlflow in either case) | True |
+    | `run_name`| str | 'run name' tag as recorded under MLflow | train |
 
+!!! code ""
+    `sapsan.lib.experiments.train.Train.run()`
 
-<pre>
-sapsan.lib.experiments.train.Train.run()
-</pre>
+: run the model
 
-&nbsp; run the model
+: !!! code ""
+        Return
 
-`Return`
-
-&nbsp; trained model
-
-`Return type`
-
-&nbsp; pytorch or sklearn or custom type
+    | Type | Description |
+    | ---- | ----------- |
+    | pytorch or sklearn or custom type| trained model | 
 
 ---
 

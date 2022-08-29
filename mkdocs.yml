@@ -28,6 +28,7 @@ theme:
         name: Switch to light mode  
   font:
     text: Noto Sans
+    code: JetBrains Mono
   features:
     - content.tooltips
     - navigation.instant  
@@ -77,6 +78,8 @@ plugins:
   - tags
   - search
   - glightbox
+  - mkdocstrings
+  - autorefs
 
 extra:
   version:
@@ -89,6 +92,9 @@ extra:
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/pikarpov/
       name: Platon Karpov on LinkedIn  
+
+extra_css:
+  - stylesheets/extra.css
 
 copyright: Copyright &copy; 2019 - 2022 Tried National Security (Los Alamos National Laboratory), BSD
 
