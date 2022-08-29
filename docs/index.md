@@ -18,13 +18,11 @@ Sapsan is a pipeline for Machine Learning (ML) based turbulence modeling. While 
 
 ## Purpose
         
- Sapsan takes out all the hard work from data preparation and analysis in turbulence 
- and astrophysical applications, leaving you focused on ML model design, layer by layer.
+Sapsan takes out all the hard work from data preparation and analysis in turbulence 
+and astrophysical applications, leaving you focused on ML model design, layer by layer.
 
 ## Website
-Feel free to check out a website version with a few examples at [sapsan.app](http://sapsan.app). The interface is identical to the GUI of the local version of Sapsan, except lacking the ability to edit the model code on the fly and to use mlflow for tracking.
-
-Note: currently Sapsan is in beta, but we are actively working on it and introduce new features on a daily basis.
+Check out a website version with a few examples at [sapsan.app](http://sapsan.app). The interface is identical to the GUI of the local version of Sapsan, except lacking the ability to edit the model code on the fly and to use mlflow for tracking.
 
 ## News and Publications
 [**Physics-Informed Machine Learning for Modeling Turbulence in Supernovae**](https://arxiv.org/abs/2205.08663) <br />
