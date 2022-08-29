@@ -78,8 +78,6 @@ plugins:
   - tags
   - search
   - glightbox
-  - mkdocstrings
-  - autorefs
 
 extra:
   version:
