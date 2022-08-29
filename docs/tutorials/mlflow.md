@@ -119,4 +119,4 @@ backend.resume(run_id = eval.run_id)
 backend.log_metric('new_metric', new_metric) #or use backend.log_parameter() or backend.log_artifact()
 backend.end()
 ```
-Feel free to review the full [API Reference: Backend (Tracking)](/reference/api/#mlflowbackend) for the full description of MLflow-related functions built into Sapsan. 
+Feel free to review the full [API Reference: Backend (Tracking)](/api/#mlflowbackend) for the full description of MLflow-related functions built into Sapsan. 

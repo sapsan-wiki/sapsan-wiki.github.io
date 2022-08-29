@@ -121,10 +121,10 @@ nav:
         - tutorials/savenload.md
         - tutorials/parallelgpu.md
       - Technical Details:
-        - reference/estimators.md
-        - reference/structure.md                      
+        - details/estimators.md
+        - details/structure.md                      
       - Other: 
-        - reference/community.md
+        - other/community.md
         - cheat_sheet.md        
     - API Reference:
-        - reference/api.md          
+        - api.md          

@@ -99,7 +99,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.CNN3d`_`(loaders: dict, config=CNN3dConfig(), model=CNN3dModel()`_
 
-: a model based on Pytorch's [3D Convolutional Neural Network](/reference/estimators/#convolution-neural-network-cnn)
+: a model based on Pytorch's [3D Convolutional Neural Network]( /details/estimators/#convolution-neural-network-cnn)
 
 : !!! code ""
         Parameters
@@ -176,7 +176,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.PICAE`_`(loaders: dict, config=PICAEConfig(), model=PICAEModel())`_`
 
-: Convolutional Auto Encoder with Divergence-Free Kernel and with periodic padding. Further details can be found on the [PICAE page](/reference/estimators/#physics-informed-convolutional-autoencoder-picae)
+: Convolutional Auto Encoder with Divergence-Free Kernel and with periodic padding. Further details can be found on the [PICAE page]( /details/estimators/#physics-informed-convolutional-autoencoder-picae)
 
 : !!! code ""
         Parameters
@@ -259,7 +259,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.KRR`_`(loaders: np.array or list, config=KRRConfig(), model=KRRModel())`_
 
-: a model based on sk-learn [Kernel Ridge Regression](/estimators/#kernel-ridge-regression-krr)
+: a model based on sk-learn [Kernel Ridge Regression](/details/estimators/#kernel-ridge-regression-krr)
 
 : !!! code ""
         Parameters
