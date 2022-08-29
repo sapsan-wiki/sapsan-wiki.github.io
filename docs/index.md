@@ -27,16 +27,16 @@ Feel free to check out a website version with a few examples at [sapsan.app](htt
 Note: currently Sapsan is in beta, but we are actively working on it and introduce new features on a daily basis.
 
 ## News and Publications
-[*Physics-Informed Machine Learning for Modeling Turbulence in Supernovae*](https://arxiv.org/abs/2205.08663) <br />
+[**Physics-Informed Machine Learning for Modeling Turbulence in Supernovae**](https://arxiv.org/abs/2205.08663) <br />
 Astrophysical Journal (ApJ) - 2022
 
-[*Sapsan: Framework for Supernovae Turbulence Modeling with Machine Learning*](https://joss.theoj.org/papers/10.21105/joss.03199) <br />
+[**Sapsan: Framework for Supernovae Turbulence Modeling with Machine Learning**](https://joss.theoj.org/papers/10.21105/joss.03199) <br />
 Journal of Open Source Software (JOSS) - November 26, 2021
 
-[*Provectus Brings Machine Learning to Numerical Astrophysics, Helping Simulate Turbulence in Supernovae Models*](https://provectus.com/provectus-machine-learning-numerical-astrophysics-supernovae-turbulence/)<br />
+[**Provectus Brings Machine Learning to Numerical Astrophysics, Helping Simulate Turbulence in Supernovae Models**](https://provectus.com/provectus-machine-learning-numerical-astrophysics-supernovae-turbulence/)<br />
 Provectus IT Press Release - March 9, 2021
 
-[*Machine Learning for Supernova Turbulence*](https://sinews.siam.org/Details-Page/machine-learning-for-supernova-turbulence) <br />
+[**Machine Learning for Supernova Turbulence**](https://sinews.siam.org/Details-Page/machine-learning-for-supernova-turbulence) <br />
 Society for Industrial and Applied Mathematics (SIAM) News (CSE21) - March 4, 2021
 
 ??? danger "License"

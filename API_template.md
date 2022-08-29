@@ -1,7 +1,7 @@
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    ``
+    `
 
 : 
 
@@ -10,14 +10,14 @@
 
     | Name | Type | Discription | Default |
     | ---- | ---- | ----------- | ------- |    
-    | `` |  |  |  |
-    | `` |  |  |  |
-    | `` |  |  |  |
-    | `` |  |  |  |
-    | <nobr>``</nobr> |  |  |  |
+    | `` |  | 
+    | `` |  | 
+    | `` |  | 
+    | `` |  | 
+    | <nobr>``</nobr> |  | 
 
 !!! code ""
-    ``
+    `
 
 : 
 
@@ -26,4 +26,4 @@
 
     | Type | Description |
     | ---- | ----------- |
-    |  |  |  |  |
+    |  |  | 

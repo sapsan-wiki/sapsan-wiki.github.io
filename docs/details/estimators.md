@@ -26,23 +26,6 @@ where _D_in_ is the input dimension.
 
 As final layers, [ReLU](https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html) activation function is used and the data is [linearized](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html). An example model graph for the input data with the spatial dimensions of [16, 16, 16] split into 8 batches is provided below.
 
-## Kernel Ridge Regression (KRR)
-
-Example: [krr_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/krr_example.ipynb) <br>
-Estimator: [krr_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/krr/krr_estimator.py)
-
-We have included one of the classic regression-based methods used in machine learning - [Kernel Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.kernel_ridge.KernelRidge.html). The model has two hyperparameters to be tuned: regularization term `α` and full-width at half-max `σ`. KRR has the following form:
-
-$$
-y^′ = y(K + \alpha I)^{− 1}k
-$$
-
-where *K* is the kernel, chosen to be the radial basis function (gaussian):
-
-$$
-K(x, x^′) = exp\left( -\frac{||x − x^′||^2}{2\sigma^2}\right)
-$$
-
 ## Physics-Informed CNN for Turbulence Modeling (PIMLTurb)
 
 ![PIMLturb Model Graph](../assets/pimlturb_model_graph.png#only-light){ align=right : style="width:200px"}
@@ -53,11 +36,11 @@ $$
 Example: [pimlturb_diagonal_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/pimlturb_diagonal_example.ipynb) <br>
 Estimator: [pimlturb_diagonal_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pimlturb/pimlturb_diagonal_estimator.py)
 
-The estimator is based on [Physics-Informed Machine Learning for Modeling Turbulence in Supernovae](https://arxiv.org/abs/2205.08663) by P.I.Karpov et al. The model is based on a 3D convolutional network with some additions to enforce a realizability constraint (*Re*<sub>*ii*</sub> > 0, where *Re* is the Reynolds stress tensor and *i* is the component index). Its overall schematic and graph are shown below.
+The estimator is based on [Physics-Informed Machine Learning for Modeling Turbulence in Supernovae](https://arxiv.org/abs/2205.08663) by P.I.Karpov et al. The model is based on a 3D convolutional network with some additions to enforce a realizability constraint ($Re_{ii} > 0$, where $Re$ is the Reynolds stress tensor and $i$ is the component index). Its overall schematic and graph are shown below.
 
 The method also utilizes a custom loss that combines statistical (Kolmogorov-Smirnov Statistic) and spatial (Smooth L1) losses. The full description can be found in the paper linked above.
 
-For the example included in Sapsan, the data included is from the same dataset as the publication, but it has been heavily sampled (down to 17^3^). To achieve comparable published results, the model will need to be trained for 3000-4000 epochs. 
+For the example included in Sapsan, the data included is from the same dataset as the publication, but it has been heavily sampled (down to $17^3$). To achieve comparable published results, the model will need to be trained for 3000-4000 epochs. 
 
 ![PIMLturb Model Schematic](../assets/pimlturb_model_schematic.png#only-light){style="width:400px"}
 ![PIMLturb Model Schematic](../assets/pimlturb_model_schematic_dark.png#only-dark){style="width:400px"}
@@ -73,6 +56,23 @@ The model consists of 2 main parts:
 1. Convolutional Auto-Encoder (trainable)
 2. Static layers enforcing divergence-free condition (constant)
 
-Thus, the latter force the CAE portion of the model to adjust to the curl of A to be 0. Through this, we are effectively enforcing the conservation of mass. A schematic of the model is shown below.
+Thus, the latter force the CAE portion of the model to adjust to the curl of $A$ to be 0. Through this, we are effectively enforcing the conservation of mass. A schematic of the model is shown below.
 
 ![Physics-Informed CAE](../assets/PICAE.png){style="width:600px"}
+
+## Kernel Ridge Regression (KRR)
+
+Example: [krr_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/krr_example.ipynb) <br>
+Estimator: [krr_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/krr/krr_estimator.py)
+
+We have included one of the classic regression-based methods used in machine learning - [Kernel Ridge Regression](https://scikit-learn.org/stable/modules/generated/sklearn.kernel_ridge.KernelRidge.html). The model has two hyperparameters to be tuned: regularization term $\alpha$ and full-width at half-max $\sigma$. KRR has the following form:
+
+$$
+y^′ = y(K + \alpha I)^{− 1}k
+$$
+
+where $K$ is the kernel, chosen to be the radial basis function (gaussian):
+
+$$
+K(x, x^′) = exp\left( -\frac{||x − x^′||^2}{2\sigma^2}\right)
+$$

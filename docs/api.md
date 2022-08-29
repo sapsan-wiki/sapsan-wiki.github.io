@@ -5,8 +5,6 @@ hide:
 
 # API Reference
 
-The following page is organized based on the method types. Feel free to jump through the navigation on the right -->
-
 ## Glossary
 | Variable | Definition |
 | -------- | ---------- |
@@ -29,7 +27,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.experiments.train.Train`_`(model: Estimator, data_parameters: dict, backend = FakeBackend(), show_log = True, run_name = 'train')`_
 
-: call Train to set up your run    
+: Call `Train` to set up your run    
 
 : !!! code ""
         Parameters
@@ -45,7 +43,7 @@ The following page is organized based on the method types. Feel free to jump thr
 !!! code ""
     `sapsan.lib.experiments.train.Train.run()`
 
-: run the model
+: Run the model
 
 : !!! code ""
         Return
@@ -62,7 +60,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.experiments.evaluate.Evaluate`_`(model: Estimator, data_parameters: dict, backend = FakeBackend(), cmap: str = 'plasma', run_name: str = 'evaluate', **kwargs)`_
 
-: call Evaluate to set up the testing of the trained model. Don't forget to update `estimator.loaders` with the new data for testing.
+: Call `Evaluate` to set up the testing of the trained model. Don't forget to update `estimator.loaders` with the new data for testing.
 
 : !!! code ""
         Parameters
@@ -80,7 +78,7 @@ The following page is organized based on the method types. Feel free to jump thr
 !!! code ""
     `sapsan.lib.experiments.evaluate.Evaluate.run()`
 
-: run the evaluation of the trained model
+: Run the evaluation of the trained model
 
 : !!! code ""
         Return
@@ -89,17 +87,18 @@ The following page is organized based on the method types. Feel free to jump thr
     | ---- | ----------- |
     | dict{'target' : np.ndarray, 'predict' : np.ndarray}  | target and predicted data | 
 
----
 
 ## Estimators
+
+---
 
 ### CNN3d
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    `sapsan.lib.estimator.CNN3d`_`(loaders: dict, config=CNN3dConfig(), model=CNN3dModel()`_
+    `sapsan.lib.estimator.CNN3d`_`(loaders, config, model`_
 
-: a model based on Pytorch's [3D Convolutional Neural Network]( /details/estimators/#convolution-neural-network-cnn)
+: A model based on Pytorch's [3D Convolutional Neural Network]( /details/estimators/#convolution-neural-network-cnn)
 
 : !!! code ""
         Parameters
@@ -107,7 +106,7 @@ The following page is organized based on the method types. Feel free to jump thr
     | Name | Type | Discription | Default |
     | ---- | ---- | ----------- | ------- |    
     | `loaders` | dict | contains input and target data (loaders['train'], loaders['valid']). Datasets themselves have to be torch.tensor(s) | CNN3dConfig() |    
-    | `configure` | class | configuration to use for the model |  |
+    | `config` | class | configuration to use for the model | CNN3dConfig() |
     | `model` | class | the model itself - should not be adjusted | CNN3dModel() |    
 
 !!! code ""
@@ -150,7 +149,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.CNN3dConfig`_`(n_epochs, patience, min_delta, logdir, lr, min_lr, *args, **kwargs)`_
 
-: configuration for the CNN3d - based on pytorch and catalyst libraries
+: Configuration for the CNN3d - based on pytorch and catalyst libraries
 
 : !!! code ""
         Parameters
@@ -170,11 +169,98 @@ The following page is organized based on the method types. Feel free to jump thr
 
 ---
 
+### PIMLTurb
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.PIMLTurb`_`(activ, loss, loaders, ks_stop, ks_frac, ks_scale, l1_scale, l1_beta, sigma, config, model)`_
+
+: Physics-informed machine learning model to predict Reynolds-like stress tensor, $Re$, for turbulence modeling. Learn more on the wiki: [PIMLTurb]( /details/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb)
+
+: A custom loss function was developed for this model combining spatial (SmoothL1) and statistical (Kolmogorov-Smirnov) losses.
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- | 
+    | `activ` | str | activation function to use from PyTorch | Tanhshrink |
+    | `loss` | str | loss function to use; accepts only custom | SmoothL1_KSLoss |
+    | `loaders` | dict | contains input and target data (loaders['train'], loaders['valid']). Datasets themselves have to be torch.tensor(s) |  |    
+    | `ks_stop` | float | early-stopping condition based on the KS loss value alone | 0.1 |
+    | `ks_frac` | float | fraction the KS loss contributes to the total loss | 0.5 |
+    | `ks_scale` | float | scale factor to prioritize KS loss over SmoothL1 (should not be altered) | 1 |
+    | `l1_scale` | float | scale factor to prioritize SmoothL1 loss over KS | 1 |
+    | `l1_beta` | float | $beta$ threshold for smoothing the L1 loss | 1 |
+    | `sigma` | float | $sigma$ for the last layer of the network that performs a filtering operation using a Gaussian kernel | 1 |        
+    | `config` | class | configuration to use for the model | PIMLTurbConfig() |
+    | `model` | class | the model itself - should not be adjusted | PIMLTurbModel() |    
+
+!!! code ""
+    `sapsan.lib.estimator.PIMLTurb.save`_`(path: str)`_`
+
+: Saves model and optimizer states, as well as final epoch and loss
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `path` | str | save path of the model and its config parameters, `{path}/model.pt` and `{path}/params.json` respectively |  |
+
+!!! code ""    
+    `sapsan.lib.estimator.PIMLTurb.load`_`(path: str, estimator, load_saved_config = False)`_
+
+: Loads model and optimizer states, as well as final epoch and loss
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `path` | str | save path of the model and its config parameters, `{path}/model.pt` and `{path}/params.json` respectively |  |    
+    | `estimator` | estimator | need to provide an initialized model for which to load the weights. The estimator can include a new config setup, changing `n_epochs` to keep training the model further. |  |
+    | `load_saved_config` | bool | updates config parameters from `{path}/params.json`. | False |
+
+: !!! code ""
+        Return
+
+    | Type | Description |
+    | ---- | ----------- |
+    | pytorch model | loaded model | 
+
+---
+
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.PIMLTurbConfig`_`(n_epochs, patience, min_delta, logdir, lr, min_lr, *args, **kwargs)`_
+
+: Configuration for the PIMLTurb - based on pytorch (catalyst is not used)
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `n_epochs` | int | number of epochs | 1 |    
+    | `patience` | int | number of epochs with no improvement after which training will be stopped _(not used)_ | 10 |
+    | `min_delta` | float | minimum change in the monitored metric to qualify as an improvement, i.e. an absolute change of less than min_delta, will count as no improvement _(not used)_ | 1e-5 |
+    | `log_dir` | int | path to store the logs| ./logs/ |
+    | `lr` | float | learning rate | 1e-3 |
+    | `min_lr` | float | a lower bound of the learning rate  for [ReduceLROnPlateau](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html) | lr\*1e-2 |
+    | `device` | str | specify the device to run the model on | cuda (or switch to cpu)
+    | <nobr>`loader_key`</nobr> | str | the loader to use for early stop: *train* or *valid* | first loader provided*, which is usually 'train' |    
+    | <nobr>`metric_key`</nobr> | str | the metric to use for early stop | 'loss' |    
+    | `ddp` | bool | turn on Distributed Data Parallel (DDP) in order to distribute the data and train the model across multiple GPUs.  This is passed to Catalyst to activate the `ddp` flag in `runner` (see more [Distributed Training Tutorial](https://catalyst-team.github.io/catalyst/tutorials/ddp.html); the `runner` is set up in [pytorch_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pytorch_estimator.py)). **Note: doesn't support jupyter notebooks - prepare a script!** | False |
+
+---
+
 ### PICAE
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    `sapsan.lib.estimator.PICAE`_`(loaders: dict, config=PICAEConfig(), model=PICAEModel())`_`
+    `sapsan.lib.estimator.PICAE`_`(loaders, config, model)`_
 
 : Convolutional Auto Encoder with Divergence-Free Kernel and with periodic padding. Further details can be found on the [PICAE page]( /details/estimators/#physics-informed-convolutional-autoencoder-picae)
 
@@ -184,8 +270,8 @@ The following page is organized based on the method types. Feel free to jump thr
     | Name | Type | Discription | Default |
     | ---- | ---- | ----------- | ------- |    
     | `loaders` | dict | contains input and target data (loaders['train'], loaders['valid']). Datasets themselves have to be torch.tensor(s) |  |    
-    | `configure` | class | configuration to use for the model | PICAEConfig |
-    | `model` | class | the model itself - should not be adjusted | PICAEModel |    
+    | `config` | class | configuration to use for the model | PICAEConfig() |
+    | `model` | class | the model itself - should not be adjusted | PICAEModel() |    
 
 !!! code ""    
     `sapsan.lib.estimator.PICAE.save`_`(path: str)`_
@@ -227,7 +313,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.PICAEConfig`_`(n_epochs, patience, min_delta, logdir, lr, min_lr, weight_decay, nfilters, kernel_size, enc_nlayers, dec_nlayers, *args, **kwargs)`_
 
-: configuration for the CNN3d - based on pytorch and catalyst libraries
+: Configuration for the CNN3d - based on pytorch and catalyst libraries
 
 : !!! code ""
         Parameters
@@ -257,9 +343,9 @@ The following page is organized based on the method types. Feel free to jump thr
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    `sapsan.lib.estimator.KRR`_`(loaders: np.array or list, config=KRRConfig(), model=KRRModel())`_
+    `sapsan.lib.estimator.KRR`_`(loaders, config, model)`_
 
-: a model based on sk-learn [Kernel Ridge Regression](/details/estimators/#kernel-ridge-regression-krr)
+: A model based on sk-learn [Kernel Ridge Regression](/details/estimators/#kernel-ridge-regression-krr)
 
 : !!! code ""
         Parameters
@@ -267,8 +353,8 @@ The following page is organized based on the method types. Feel free to jump thr
     | Name | Type | Discription | Default |
     | ---- | ---- | ----------- | ------- |    
     | `loaders` | list | contains input and target data | |
-    | `configure` | class | configuration to use for the model | KRRConfig |
-    | `model` | class | the model itself - should not be adjusted | KRRModel |
+    | `config` | class | configuration to use for the model | KRRConfig() |
+    | `model` | class | the model itself - should not be adjusted | KRRModel() |
 
 !!! code ""
     `sapsan.lib.estimator.KRR.save`_`(path: str)`_
@@ -308,9 +394,9 @@ The following page is organized based on the method types. Feel free to jump thr
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    `sapsan.lib.estimator.KRRConfig`_`(alpha, gamma)`_`
+    `sapsan.lib.estimator.KRRConfig`_`(alpha, gamma)`_
 
-: configuration for the KRR model
+: Configuration for the KRR model
 
 : !!! code ""
         Parameters
@@ -328,7 +414,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.load_estimator`_`()`_
 
-: dummy estimator to call `load()` to load the saved pytorch models
+: Dummy estimator to call `load()` to load the saved pytorch models
 
 !!! code ""
     `sapsan.lib.estimator.load_estimator.load`_`(path: str, estimator, load_saved_config = False)`_
@@ -359,7 +445,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.estimator.load_sklearn_estimator`_`()`_
 
-: dummy estimator to call `load()` to load the saved sklearn models
+: Dummy estimator to call `load()` to load the saved sklearn models
 
 !!! code ""
     `sapsan.lib.estimator.load_sklearn_estimator.load`_`(path: str, estimator, load_saved_config = False)`_
@@ -393,7 +479,7 @@ The following page is organized based on the method types. Feel free to jump thr
     
     `sapsan.lib.data.hdf5_dataset.HDF5Dataset`_`( path: str, features: List[str], target: List[str], checkpoints: List[int], batch_size: int = None, input_size: int = None, sampler: Optional[Sampling] = None, time_granularity: float = 1, features_label: Optional[List[str]] = None, target_label: Optional[List[str]] = None, flat: bool = False, shuffle: bool=False, train_fraction = None)`_
 
-: hdf5 data loader class
+: HDF5 data loader class
 
 : !!! code ""
         Parameters
@@ -407,7 +493,7 @@ The following page is organized based on the method types. Feel free to jump thr
     | <nobr>`input_size`</nobr> | int | dimension of the loaded data in each axis | |
     | <nobr>`batch_size`</nobr> | int | dimension of a batch in each axis. If batch_size != input_size, the datacube will be evenly splitted | input_size (doesn't work with *sampler*) |
     | <nobr>`batch_num`</nobr> | int | the number of batches to be loaded at a time | 1 |
-    | `sampler` | object | data sampler to use (ex: EquidistantSampling()) | |
+    | `sampler` | object | data sampler to use (ex: EquidistantSampling()) | None |
     | <nobr>`time_granularity`</nobr> | float | what is the time separation (dt) between checkpoints | 1 |
     | <nobr>`features_label`</nobr> | List[str] | hdf5 data label for the train features | list(file.keys())[-1], i.e. last one in hdf5 file |
     | <nobr>`target_label`</nobr> | List[str] | hdf5 data label for the target features | list(file.keys())[-1], i.e. last one in hdf5 file |
@@ -418,7 +504,7 @@ The following page is organized based on the method types. Feel free to jump thr
 !!! code ""
     `sapsan.lib.data.hdf5_dataset.HDF5Dataset.load_numpy()`
 
-: hdf5 data loader method - call it to load the data as a numpy array. If *targets* are not specified, than only features will be loaded (hence you can just load 1 dataset at a time).
+: HDF5 data loader method - call it to load the data as a numpy array. If *targets* are not specified, than only features will be loaded (hence you can just load 1 dataset at a time).
 
 : !!! code ""
         Return
@@ -481,562 +567,610 @@ The following page is organized based on the method types. Feel free to jump thr
     | ---- | ----------- |
     | np.ndarray | shape of the tensor |
 
---- 
 
 ## Data Manipulation
+
+--- 
+
 ### EquidistantSampling
 
-<pre>
-<b>CLASS</b> sapsan.lib.data.sampling.EquidistantSampling`_`(target_dim)`_
-</pre> 
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.data.sampling.EquidistantSampling`_`(target_dim)`_
 
-Samples the data to a lower dimension, keeping separation between the data points equally distant
+: Samples the data to a lower dimension, keeping separation between the data points equally distant
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __target_dim (np.ndarray)__ - new shape of the input in the form [D, H, W]
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | <nobr>`target_dim`</nobr> | np.ndarray | new shape of the input in the form [D, H, W] |
 
+!!! code ""
+    `sapsan.lib.data.sampling.EquidistantSampling.sample`_`(data)`_
 
-<pre>
-sapsan.lib.data.sampling.EquidistantSampling.sample`_`(data)`_
-</pre>
+: Performs sampling of the data
 
-performs sampling of the data
+: !!! code ""
+        Parameters
 
-`Parameters`
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `data` | np.ndarray | input data to be sampled - has the shape of [axis, D, H, W] | |
 
-* __data (np.ndarray)__ - input data to be sampled - has the shape of [axis, D, H, W]
+: !!! code ""
+        Return
 
-`Return`
-
-sampled data with the shape [axis, D, H, W]
-
-`Return Type`
-
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | Sampled data with the shape [axis, D, H, W]
+ | 
 
 ---
 
 ### split_data_by_batch
 
-<pre>
-sapsan.utils.shapes.split_data_by_batch`_`(data: np.ndarray, size: int, batch_size: int, n_features: int)`_
-</pre>
-[2D or 3D data]: splits data into smaller cubes or squares of batches
+!!! code ""
+    `sapsan.utils.shapes.split_data_by_batch`_`(data: np.ndarray, size: int, batch_size: int, n_features: int, axis: int)`_
 
-`Parameters`
-* __data (np.ndarray)__ - input 2D or 3D data, [C<sub>in</sub>, D, H, W]
-* __size (int)__ - dimensionality of the data in each axis
-* __batch_size (int)__ - dimensionality of the batch in each axis
-* __n_features (int)__ - number of channels of the input data
+: [2D, 3D]: splits data into smaller cubes or squares of batches
 
-`Return`
+: !!! code ""
+        Parameters
 
-batched data: [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>]
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `data` | np.ndarray | input 2D or 3D data, [C<sub>in</sub>, D, H, W] | |
+    | `size` | int | dimensionality of the data in each axis | |
+    | <nobr>`batch_size`</nobr> | int | dimensionality of the batch in each axis | |
+    | <nobr>`n_features`</nobr> | int | number of channels of the input data | |
+    | `axis` | int | number of axes, 2 or 3 | |
 
-`Return type`
+: !!! code ""
+        Return
 
-np.ndarray
-
----
-
-### split_square_by_batch
-
-<pre>
-sapsan.utils.shapes.split_square_by_batch`_`(data: np.ndarray, size: int, batch_size: int, n_features: int)`_
-</pre>
-[2D] - splits big square into smaller ones - batches.
-
-`Parameters`
-* __data (np.ndarray)__ - input 2D data, [C<sub>in</sub>, H, W]
-* __size (int)__ - dimensionality of the data in each axis
-* __batch_size (int)__ - dimensionality of the batch in each axis
-* __n_features (int)__ - number of channels of the input data
-
-`Return`
-
-batched data: [N, C<sub>in</sub>, H<sub>b</sub>, W<sub>b</sub>]
-
-`Return type`
-
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | batched data: [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>] | 
 
 ---
 
 ### combine_data
 
-<pre>
-sapsan.utils.shapes.combine_data`_`(data: np.ndarray, input_size: int, batch_size: int)`_
-</pre>
-[3D] - reverse of `split_data_by_batch` function
+!!! code ""
+    `sapsan.utils.shapes.combine_data`_`(data: np.ndarray, input_size: tuple, batch_size: tuple, axis: int)`_
 
-`Parameters`
-* __data (np.ndarray)__ - input 2D or 3D data, [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>]
-* __input_size (int)__ - dimensionality of the original data in each axis
-* __batch_size (int)__ - dimensionality of the batch in each axis
+: [2D, 3D] - reverse of `split_data_by_batch` function
 
-`Return`
+: !!! code ""
+        Parameters
 
-reassembled data: [C<sub>in</sub>, D, H, W]
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `data` | np.ndarray | input 2D or 3D data, [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>] | |
+    | <nobr>`input_size`</nobr> | tuple | dimensionality of the original data in each axis | |
+    | <nobr>`batch_size`</nobr> | tuple | dimensionality of the batch in each axis | |
+    | `axis` | int | number of axes, 2 or 3 | |
 
-`Return type`
+: !!! code ""
+        Return
 
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | reassembled data: [C<sub>in</sub>, D, H, W] | 
 
 ---
 
 ### slice_of_cube
 
-<pre>
-sapsan.utils.shapes.slice_of_cube`_`(data: np.ndarray, feature: Optional[int] = None, n_slice: Optional[int] = None))`_
-</pre>
-select a slice of a cube (to plot later)
+!!! code ""
+    `sapsan.utils.shapes.slice_of_cube`_`(data: np.ndarray, feature: Optional[int] = None, n_slice: Optional[int] = None))`_
 
-`Parameters`
-* __data (np.ndarray)__ - input 3D data, [C<sub>in</sub>, D, H, W]
-* __feature (int)__ - feature to take the slice of, i.e. the value of C<sub>in</sub> | 1*
-* __n_slice (int)__ - what slice to select, i.e. the value of D | 1*
+: Select a slice of a cube (to plot later)
 
-`Return`
+: !!! code ""
+        Parameters
 
-data slice: [H, W]
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `data` | np.ndarray | input 3D data, [C<sub>in</sub>, D, H, W] | |
+    | `feature` | int | feature to take the slice of, i.e. the value of C<sub>in</sub> | 1 |
+    | `n_slice` | int | what slice to select, i.e. the value of D | 1 | 
 
-`Return type`
+: !!! code ""
+        Return
 
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | data slice: [H, W] | 
 
-<br/>
 
 ## Filter
 
+--- 
+
 ### spectral
 
-<pre>
-sapsan.utils.filter.spectral`_`(im: np.ndarray, fm: int)`_
-</pre>
+!!! code ""
+    `sapsan.utils.filter.spectral`_`(im: np.ndarray, fm: int)`_
 
-[2D, 3D] apply a spectral filter
+: [2D, 3D] apply a spectral filter
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __im (np.ndarray)__ - input dataset (ex: [C<sub>in</sub>, D, H, W])
-* __fm (int)__ - number of Fourier modes to filter down to
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `im` | np.ndarray | input dataset (ex: [C<sub>in</sub>, D, H, W]) | |
+    | `fm` | int | number of Fourier modes to filter down to | |  
 
-`Return`
+: !!! code ""
+        Return
 
-filtered dataset
-
-`Return type`
-
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | filtered dataset | 
 
 ---
 
 ### box
+!!! code ""
+    `sapsan.utils.filter.box`_`(im: np.ndarray, ksize)`_
 
-<pre>
-sapsan.utils.filter.box`_`(im: np.ndarray, ksize)`_
-</pre>
+: [2D] apply a [box filter](https://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html#boxfilter)
 
-[2D] apply a [box filter](https://docs.opencv.org/2.4/modules/imgproc/doc/filtering.html#boxfilter)
+: !!! code ""
+        Parameters
 
-`Parameters`
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `im` | np.ndarray | input dataset (ex: [C<sub>in</sub>, H, W]) | |
+    | `ksize` | tupple | kernel size (ex: ksize = (2,2)) | |
 
-* __im (np.ndarray)__ - input dataset (ex: [C<sub>in</sub>, H, W])
-* __ksize (tupple)__ - kernel size (ex: ksize = (2,2))
+: !!! code ""
+        Return
 
-`Return`
-
-filtered dataset
-
-`Return type`
-
-np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | filtered dataset | 
 
 ---
 
 ### gaussian
+!!! code ""
+    `sapsan.utils.filter.gaussian`_`(im: np.ndarray, sigma)`_
 
-<pre>
-sapsan.utils.filter.gaussian`_`(im: np.ndarray, sigma)`_
-</pre>
+: [2D, 3D] apply a [gaussian filter](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)
 
-[2D, 3D] apply a [gaussian filter](https://docs.scipy.org/doc/scipy/reference/generated/scipy.ndimage.gaussian_filter.html)
+: Note: Guassian filter assumes dx=1 between the points. Adjust sigma accordingly.
 
-Note: Guassian filter assumes dx=1 between the points. Adjust sigma accordingly.
+: !!! code ""
+        Parameters
 
-`Parameters`
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `im` | np.ndarray | input dataset (ex: [H, W] or [D, H, W]) | |
+    | `sigma` | float or tuple of floats | standard deviation for Gaussian kernel. Sigma can be defined for each axis individually. | |
 
-* __im (np.ndarray)__ - input dataset (ex: [H, W] or [D, H, W])
-* __sigma (float or a sequence of floats)__ - standard deviation for Gaussian kernel. Sigma can be defined for each axis individually
+: !!! code ""
+        Return
 
-`Return`
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | filtered dataset | 
 
-filtered dataset
-
-`Return type`
-
-np.ndarray
-
-<br/>
 
 ## Backend (Tracking)
 
+---
+
 ### MLflowBackend
 
-<pre>
-<b>CLASS</b> sapsan.lib.backends.mlflow.MLflowBackend`_`(name, host, port)`_
-</pre> 
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.backends.mlflow.MLflowBackend`_`(name, host, port)`_
 
-initilizes [mlflow](https://www.mlflow.org/) and starts up [mlflow ui](https://www.mlflow.org/docs/latest/tracking.html#tracking-ui) at a given host:port
+: Initilizes [mlflow](https://www.mlflow.org/) and starts up [mlflow ui](https://www.mlflow.org/docs/latest/tracking.html#tracking-ui) at a given host:port
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __name (str)__ - name under which to record the experiment | "experiment"*
-* __host (str)__ - host of mlflow ui | "localhost"*
-* __port (int)__ - port of mlflow ui | 9000*
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `name` | str | name under which to record the experiment | "experiment" |
+    | `host` | str | host of mlflow ui | "localhost" |
+    | `port` | int | port of mlflow ui | 9000 |
+    
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.start_ui`_`()`_
 
+: starts MLflow ui at a specified host and port
 
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.start_ui`_`()`_
-</pre>
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.start`_`(run_name: str, nested = False, run_id = None)`_
 
-starts MLflow ui at a specified host and port
+: Starts a tracking run
 
+: !!! code ""
+        Parameters
 
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.start`_`(run_name: str, nested = False, run_id = None)`_
-</pre>
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `run_name` | str | name of the run | "train" for `Train()`, "evaluate" for `Evaluate()` |
+    | `nested` | bool | whether or not to nest the recorded run | *False* for `Train()`, *True* for `Evaluate()` |
+    | `run_id` | str | run id | None - a new will be generated |
 
-starts a tracking run
+: !!! code ""
+        Return
 
-`Parameters`
+    | Type | Description |
+    | ---- | ----------- |
+    | str | run_id | 
 
-* __run_name (str)__ - name of the run. Default "train" for *Train()* and "evaluate" for *Evaluate()*
-* __nested (bool)__ - whether or not to nest the recorded run | False* (*False* for *Train()* and *True* for *Evaluate()*)
-* __run_id (str)__ - run id | None* - a new will be generated
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.resume`_`(run_id, nested = True)`_
 
-`Return`
+: Resumes a previous run, so you can record extra parameters
 
-run_id
+: !!! code ""
+        Parameters
 
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `run_id` | str | id of the run to resume | |
+    | `nested` | bool | whether or not to nest the recorded run | True, since it will usually be an `Evaluate()` run |
 
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.resume`_`(run_id, nested = True)`_
-</pre>
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.log_metric`_`()`_
 
-resumes a previous run
+: Logs a metric
 
-`Parameters`
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.log_parameter`_`()`_
 
-* __run_id (str)__ - id of the run to resume
-* __nested (bool)__ - whether or not to nest the recorded run | True*, since it will usually be an *Evaluate()* run
+: Logs a parameter
 
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.log_metric`_`()`_
-</pre>
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.log_artifact`_`()`_
 
-logs a metric
+: Logs an artifact (any saved file such, e.g. .png, .txt)
 
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.close_active_run`_`()`_
 
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.log_parameter`_`()`_
-</pre>
+: Closes all active MLflow runs
 
-logs a parameter
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.end`_`()`_
 
-
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.log_artifact`_`()`_
-</pre>
-
-logs an artifact (any saved file such, e.g. .png, .txt)
-
-
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.close_active_run`_`()`_
-</pre>
-
-closes all active MLflow runs
-
-
-<pre>
-sapsan.lib.backends.mlflow.MLflowBackend.end`_`()`_
-</pre>
-
-ends the most recent MLflow run
+: Ends the most recent MLflow run
 
 ---
 
 ### FakeBackend
 
-<pre>
-<b>CLASS</b> sapsan.lib.backends.fake.FakeBackend()
-</pre> 
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.backends.fake.FakeBackend()`
 
-pass to `train` in order to disable backend (tracking)
+: Pass to `train` in order to disable backend (tracking)
 
-<br/>
 
 ## Plotting
 
+---
+
 ### plot_params
-<pre>
-sapsan.utils.plot.plot_params()
-</pre>
-contains the matplotlib parameters that format all of the plots (font.size, axes.labelsize, etc.)
 
-`Return`
+!!! code ""
+    `sapsan.utils.plot.plot_params()`
 
-matplotlib parameters
+: Contains the matplotlib parameters that format all of the plots (`font.size`, `axes.labelsize`, etc.)
 
-`Return type`
+: !!! code ""
+        Return
 
-dict
+    | Type | Description |
+    | ---- | ----------- |
+    | dict | matplotlib parameters | 
+
+: ??? cite "Default Parameters"
+        ```python
+        def plot_params():
+            params = {'font.size': 14, 'legend.fontsize': 14, 
+                    'axes.labelsize': 20, 'axes.titlesize': 24,
+                    'xtick.labelsize': 17,'ytick.labelsize': 17,
+                    'axes.linewidth': 1, 'patch.linewidth': 3, 
+                    'lines.linewidth': 3,
+                    'xtick.major.width': 1.5,'ytick.major.width': 1.5,
+                    'xtick.minor.width': 1.25,'ytick.minor.width': 1.25,
+                    'xtick.major.size': 7,'ytick.major.size': 7,
+                    'xtick.minor.size': 4,'ytick.minor.size': 4,
+                    'xtick.direction': 'in','ytick.direction': 'in',              
+                    'axes.formatter.limits': [-7, 7],'axes.grid': True, 
+                    'grid.linestyle': ':','grid.color': '#999999',
+                    'text.usetex': False,}
+            return params
+        ```
 
 ---
 
 ### pdf_plot
-<pre>
-sapsan.utils.plot.pdf_plot`_`(series: List[np.ndarray], bins: int = 100, label: Optional[List[str]] = None, figsize: tuple, ax: matplotlib.axes)`_
-</pre>
-plot a probability density function (pdf) of a single or multiple dataset
 
-`Parameters`
+!!! code ""
+    `sapsan.utils.plot.pdf_plot`_`(series: List[np.ndarray], bins: int = 100, label: Optional[List[str]] = None, figsize: tuple, dpi: int, ax: matplotlib.axes, style: str)`_
 
-* __series (List[np.ndarray])__ - input datasets
-* __bins (int)__ - number of bins to use for the dataset to generate the pdf | 100*.
-* __label (List[str])__ - list of names to use as labels in the legend.  Default *None*.
-* __figsize (tuple)__ - figure size as passed to matplotlib figure | (6,6)*
-* __ax (matplotlib.axes)__ - axes object to use for plotting (if you want to define your own figure and subplots) | None* - creates a separate figure
+: Plot a probability density function (PDF) of a single or multiple datasets
 
-`Return`
+: !!! code ""
+        Parameters
 
-ax
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `series` | List[np.ndarray] | input datasets | |
+    | `bins` | int | number of bins to use for the dataset to generate the pdf | 100 |
+    | `label` | List[str] | list of names to use as labels in the legend | None |
+    | `figsize` | tuple | figure size as passed to matplotlib figure | (6,6) |
+    | `dpi` | int | resolution of the figure | 60 |
+    | `ax` | matplotlib.axes | axes object to use for plotting (if you want to define your own figure and subplots) | None - creates a separate figure |
+    | `style` | str | accepts [matplotlib styles](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html) | 'tableau-colorblind10'
 
-`Return type`
+: !!! code ""
+        Return
 
-matplotlib.axes object
+    | Type | Description |
+    | ---- | ----------- |
+    | matplotlib.axes object | ax | 
 
 ---
 
 ### cdf_plot
+!!! code ""
+    `sapsan.utils.plot.cdf_plot`_`(series: List[np.ndarray], bins: int = 100, label: Optional[List[str]] = None, figsize: tuple, dpi: int, ax: matplotlib.axes, ks: bool, style: str)`_
 
-<pre>
-sapsan.utils.plot.cdf_plot`_`(series: List[np.ndarray], label: Optional[List[str]] = None, figsize: tuple, ax: matplotlib.axes, ks: Bool)`_
-</pre>
-plot a cumulative distribution function (cdf) of a single or multiple dataset
+: Plot a cumulative distribution function (CDF) of a single or multiple datasets
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __series (List[np.ndarray])__ - input datasets
-* __label (List[str])__ - list of names to use as labels in the legend.  Default *None*.
-* __figsize (tuple)__ - figure size as passed to matplotlib figure | (6,6)*
-* __ax (matplotlib.axes)__ - axes object to use for plotting (if you want to define your own figure and subplots) | None* - creates a separate figure
-* __ks (bool)__ - if _True_ prints out on the plot itself the [Kolomogorov-Smirnov Statistic](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test). It will also be returned along with the _ax_ object | False*
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `series` | List[np.ndarray] | input datasets | |
+    | `bins` | int | number of bins to use for the dataset to generate the pdf | 100 |
+    | `label` | List[str] | list of names to use as labels in the legend | None |
+    | `figsize` | tuple | figure size as passed to matplotlib figure | (6,6) |
+    | `dpi` | int | resolution of the figure | 60 |
+    | `ax` | matplotlib.axes | axes object to use for plotting (if you want to define your own figure and subplots) | None - creates a separate figure |
+    | `ks` | bool | if _True_ prints out on the plot itself the [Kolomogorov-Smirnov Statistic](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test). It will also be returned along with the _ax_ object | False |
+    | `style` | str | accepts [matplotlib styles](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html) | 'tableau-colorblind10'
 
-`Return`
+: !!! code ""
+        Return
 
-ax, ks (if ks==True)
-
-`Return type`
-
-matplotlib.axes object, float (if ks==True)
+    | Type | Description |
+    | ---- | ----------- |
+    | matplotlib.axes object, float (if ks==True) | ax, ks (if ks==True) | 
 
 ---
 
 ### line_plot
+!!! code ""
+    `sapsan.utils.plot.line_plot`_`(series: List[np.ndarray], bins: int = 100, label: Optional[List[str]] = None, plot_type: str, figsize: tuple, dpi: int, ax: matplotlib.axes, style: str)`_
 
-<pre>
-sapsan.utils.plot.line_plot`_`(series: List[np.ndarray], label: Optional[List[str]] = None, plot_type: str, figsize: tuple, ax: matplotlib.axes)`_
-</pre>
-plot linear data of x vs y - same matplotlib formatting will be used as the other plots
+: Plot linear data of x vs y - same matplotlib formatting will be used as the other plots
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __series (List[np.ndarray])__ - input datasets in the format: [[x1,y1], [x2,y2], ... ]
-* __label (List[str])__ - list of names to use as labels in the legend.  Default *None*.
-* __plot_type (str)__ - axis type of the matplotlib plot; options = ['plot', 'semilogx', 'semilogy', 'loglog'] | 'plot'*
-* __figsize (tuple)__ - figure size as passed to matplotlib figure | (6,6)*
-* __linestyle (List[str])__ - list of linestyles to use for each profile for the matplotlib figure | '-'* (solid line)
-* __ax (matplotlib.axes)__ - axes object to use for plotting (if you want to define your own figure and subplots) | None* - creates a separate figure
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `series` | List[np.ndarray] | input datasets | |
+    | `bins` | int | number of bins to use for the dataset to generate the pdf | 100 |
+    | `label` | List[str] | list of names to use as labels in the legend | None |
+    | `plot_type` | str | axis type of the matplotlib plot; options = ['plot', 'semilogx', 'semilogy', 'loglog'] | 'plot' |
+    | `figsize` | tuple | figure size as passed to matplotlib figure | (6,6) |
+    | `linestyle` | List[str] | list of linestyles to use for each profile for the matplotlib figure | ['-'] (solid line) |
+    | `dpi` | int | resolution of the figure | 60 |
+    | `ax` | matplotlib.axes | axes object to use for plotting (if you want to define your own figure and subplots) | None - creates a separate figure |
+    | `style` | str | accepts [matplotlib styles](https://matplotlib.org/stable/gallery/style_sheets/style_sheets_reference.html) | 'tableau-colorblind10'
 
-`Return`
+: !!! code ""
+        Return
 
-ax
-
-`Return type`
-
-matplotlib.axes object
+    | Type | Description |
+    | ---- | ----------- |
+    | matplotlib.axes object | ax | 
 
 ---
 
 ### slice_plot
+!!! code ""
+    `sapsan.utils.plot.slice_plot`_`(series: List[np.ndarray], label: Optional[List[str]] = None, cmap = 'plasma', figsize: tuple, dpi: int, ax: matplotlib.axes)`_
 
-<pre>
-sapsan.utils.plot.slice_plot`_`(series: List[np.ndarray], label: Optional[List[str]] = None, cmap = 'plasma', figsize: tuple)`_
-</pre>
-plot 2D spatial distributions (slices) of your target and prediction datasets
+: Plot 2D spatial distributions (slices) of your target and prediction datasets
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __series (List[np.ndarray])__ - input datasets
-* __label (List[str])__ - list of names to use as labels in the legend.  Default *None*.
-* __cmap (str)__ - matplotlib colormap to use | plasma*.
-* __figsize (tuple)__ - figure size as passed to matplotlib figure | (6,6)*
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `series` | List[np.ndarray] | input datasets | |
+    | `label` | List[str] | list of names to use as labels in the legend | None |
+    | `cmap` | str | matplotlib colormap to use | 'plasma' |
+    | `figsize` | tuple | figure size as passed to matplotlib figure | (6,6) |
+    | `dpi` | int | resolution of the figure | 60 |
+    | `ax` | matplotlib.axes | axes object to use for plotting (if you want to define your own figure and subplots) <br> {==WARNING: only works if a ^^single^^ image is supplied to `slice_plot()`, otherwise will be ignored==} | None - creates a separate figure |
 
-`Return`
+: !!! code ""
+        Return
 
-ax
-
-`Return type`
-
-matplotlib.axes object
+    | Type | Description |
+    | ---- | ----------- |
+    | matplotlib.axes object | ax | 
 
 ---
 
 ### log_plot
+!!! code ""
+    `sapsan.utils.plot.log_plot`_`(show_log = True, log_path = 'logs/logs/train.csv', valid_log_path = 'logs/logs/valid.csv', delimiter=',', train_name = 'train_loss', valid_name = 'valid_loss', train_column = 1, valid_column = 1, epoch_column = 0)`_
 
-<pre>
-sapsan.utils.plot.log_plot`_`(show_log = True, log_path = 'logs/logs/train.csv', valid_log_path = 'logs/logs/valid.csv', delimiter=',', train_name = 'train_loss', valid_name = 'valid_loss', train_column = 1, valid_column = 1, epoch_column = 0)`_
-</pre>
-plots the training log of train_loss vs. epoch
+: Plots an interactive training log of train_loss vs. epoch with plotly
 
-`Parameters`
+: !!! code ""
+        Parameters
 
-* __show_log (bool)__ - show the loss vs. epoch progress plot (it will be save in mlflow in either case) | True*
-* __log_path (str)__ - path to training log produced by the catalyst wrapper.  Default *'logs/logs/train.csv'*
-* __valid_log_path (str)__ - path to validation log produced by the catalyst wrapper.  Default *'logs/logs/valid.csv'*
-* __delimiter (str)__ - delimiter to use for numpy.genfromtxt data loading | ','*
-* __train_name (str)__ - name for the training label | 'train_loss'*
-* __valid_name (str)__ - name for the validation label | 'valid_loss'*
-* __train_column (int)__ - column to load for training data from `log_path` | 1*
-* __valid_column (int)__ - column to load for validation data from `valid_log_path` | 1*
-* __epoch_column (int)__ - column to load the epoch index from `log_path`. If *None*, then epoch will be generated fro the number of entries | 0*
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `show_log` | bool | show the loss vs. epoch progress plot (it will be save in mlflow in either case) | True |
+    | `log_path` | str | path to training log produced by the catalyst wrapper | 'logs/logs/train.csv' |
+    | <nobr>`valid_log_path`</nobr> | str | path to validation log produced by the catalyst wrapper | 'logs/logs/valid.csv' |
+    | `delimiter` | str | delimiter to use for numpy.genfromtxt data loading | ',' |
+    | `train_name` | str | name for the training label | 'train_loss' |
+    | `valid_name` | str | name for the validation label | 'valid_loss' |
+    | `train_column` | int | column to load for training data from `log_path` | 1 |
+    | `valid_column` | int | column to load for validation data from `valid_log_path` | 1 |
+    | `epoch_column` | int | column to load the epoch index from `log_path`. If *None*, then epoch will be generated fro the number of entries | 0 |    
 
-`Return`
+: !!! code ""
+        Return
 
-plot figure
-
-`Return type`
-
-plotly.express object
+    | Type | Description |
+    | ---- | ----------- |
+    | plotly.express object | plot figure | 
 
 ---
 
 ### model_graph
 
-<pre>
-sapsan.utils.plot.model_graph`_`(model, shape: np.array, transforms)`_
-</pre>
-creates a graph of the ML model (needs graphviz to be installed)
+!!! code ""
+    `sapsan.utils.plot.model_graph`_`(model, shape: np.array, transforms)`_
 
-The method is based on [hiddenlayer](https://github.com/waleedka/hiddenlayer) originally written by Waleed Abdulla.
+: Creates a graph of the ML model (needs graphviz to be installed). A tutorial is available on the wiki: [Model Graph](/tutorials/model_graph/)
 
-`Parameters`
+: The method is based on [hiddenlayer](https://github.com/waleedka/hiddenlayer) originally written by Waleed Abdulla.
 
-* __model (object)__ - initialized pytorch or tensorflow model
-* __shape (np.array)__ - shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1
-* __transforms (list[methods])__ - a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*). Default:
-```python
-> import sapsan.utils.hiddenlayer as hl
-> transforms = [
-                hl.transforms.Fold("Conv > MaxPool > Relu", "ConvPoolRelu"),
-                hl.transforms.Fold("Conv > MaxPool", "ConvPool"),    
-                hl.transforms.Prune("Shape"),
-                hl.transforms.Prune("Constant"),
-                hl.transforms.Prune("Gather"),
-                hl.transforms.Prune("Unsqueeze"),
-                hl.transforms.Prune("Concat"),
-                hl.transforms.Rename("Cast", to="Input"),
-                hl.transforms.FoldDuplicates()
-               ]
-```
+: !!! code ""
+        Parameters
 
-`Return`
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `model` | object | initialized pytorch or tensorflow model | |
+    | `shape` | np.array | shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1 | |
+    | <nobr>`transforms`</nobr> | list[methods] | a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*) | <nobr>_See below_ :material-arrow-down-right:</nobr>|    
 
-graph of a model
+: ??? cite "Default Parameters"
+        ```python
+        import sapsan.utils.hiddenlayer as hl
+        transforms = [
+                        hl.transforms.Fold("Conv > MaxPool > Relu", "ConvPoolRelu"),
+                        hl.transforms.Fold("Conv > MaxPool", "ConvPool"),    
+                        hl.transforms.Prune("Shape"),
+                        hl.transforms.Prune("Constant"),
+                        hl.transforms.Prune("Gather"),
+                        hl.transforms.Prune("Unsqueeze"),
+                        hl.transforms.Prune("Concat"),
+                        hl.transforms.Rename("Cast", to="Input"),
+                        hl.transforms.FoldDuplicates()
+                    ]
+        ```
 
-`Return type`
+: !!! code ""
+        Return
 
-graphviz.Digraph object
+    | Type | Description |
+    | ---- | ----------- |
+    | graphviz.Digraph object | graph of a model | 
 
-<br/>
 
 ## Physics
 
+---
+
 ### ReynoldsStress
 
-<pre>
-sapsan.utils.physics.ReynoldsStress`_`(u, filt, filt_size, only_x_components=False)`_
-</pre>
+!!! code ""
+    `sapsan.utils.physics.ReynoldsStress`_`(u, filt, filt_size, only_x_components=False)`_
 
-calculates a stress tensor of the form *τ*<sub>*ij*</sub> = (u<sub>*i*</sub>u<sub>*j*</sub>)<sup>\*</sup>-u<sup>\*</sup><sub>*i*</sub>*u<sup>\*</sup><sub>*j*</sub>*
+: Calculates a stress tensor of the form 
 
-where u<sup>\*</sup> is the filtered u
+$$
+\tau_{ij} = \widetilde{u_i u_j} - \tilde{u}_i\tilde{u}_j
+$$
 
-`Parameters`
-* __u (np.ndarray)__ - input velocity in 3D - [axis, D, H, W]
-* __filt (sapsan.utils.filters)__ - the type of filter to use (spectral, box, gaussian). Pass the filter itself by loading the appropriate one from `sapsan.utils.filters` | gaussian*
-* __filt_size (int or float)__ - size of the filter to apply. For different filter types, the size is defined differently. Spectral - fourier mode to filter to, Box - k_size (box size), Gaussian - sigma | 2* (sigma=2 for gaussian)
-* __only_x_components (bool)__ - calculates and outputs only x components of the tensor in shape [row, D, H, W] - calculating all 9 can be taxing on memory | False*
+: where $\tilde{u}$ is the filtered $u$
 
-`Return`
+: !!! code ""
+        Parameters
 
- stress tensor of shape [column, row, D, H, W]
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `u` | np.ndarray | input velocity in 3D - [axis, D, H, W] | |
+    | `filt` | sapsan.utils.filters | the type of filter to use (spectral, box, gaussian). Pass the filter itself by loading the appropriate one from `sapsan.utils.filters` | gaussian |
+    | `filt_size` | int or float | size of the filter to apply. For different filter types, the size is defined differently. Spectral - fourier mode to filter to, Box - k_size (box size), Gaussian - sigma | 2 (sigma=2 for gaussian) |
+    | <nobr>`only_x_component`</nobr> | bool | calculates and outputs only x components of the tensor in shape [row, D, H, W] - calculating all 9 can be taxing on memory | False |
 
-`Return Type`
+: !!! code ""
+        Return
 
- np.ndarray
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray | stress tensor of shape [column, row, D, H, W] | 
 
 ---
 
 ### PowerSpectrum
 
-<pre>
-<b>CLASS</b> sapsan.utils.physics.PowerSpectrum`_`(u: np.ndarray)`_
-</pre>
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.utils.physics.PowerSpectrum`_`(u: np.ndarray)`_
 
-sets up to produce a power spectrum
+: Sets up to produce a power spectrum
 
-`Parameters`
-* __u (np.ndarray)__ - input velocity in 3D - [axis, D, H, W]
+: !!! code ""
+        Parameters
 
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `u` | np.ndarray | input velocity in 3D - [axis, D, H, W] | |
 
-<pre>
-sapsan.utils.physics.PowerSpectrum.calculate()
-</pre>
+!!! code ""
+    `sapsan.utils.physics.PowerSpectrum.calculate()`
 
-calculates the power spectrum
+: Calculates the power spectrum
 
-`Return`
+: !!! code ""
+        Return
 
- k_bins (fourier modes), Ek_bins (E(k))
+    | Type | Description |
+    | ---- | ----------- |
+    | np.ndarray, np.ndarray | k_bins (fourier modes), Ek_bins (E(k)) | 
 
-`Return Type`
+!!! code ""
+    `sapsan.utils.physics.PowerSpectrum.spectrum_plot`_`(k_bins, Ek_bins, kolmogorov=True, kl_a)`_
 
- np.ndarray, np.ndarray
+: Plots the calculated power spectrum
 
+: !!! code ""
+        Parameters
 
-<pre>
-sapsan.utils.physics.PowerSpectrum.spectrum_plot`_`(k_bins, Ek_bins, kolmogorov=True, kl_a)`_
-</pre>
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `k_bins` | np.ndarray | fourier mode values along x-axis | |
+    | `Ek_bins` | np.ndarray | energy as a function of k: E(k) | |
+    | `kolmogorov` | bool | plots scaled Kolmogorov's -5/3 spectrum alongside the calculated one | True |
+    | `kl_A` | float | scaling factor of Kolmogorov's law | _np.amax(self.Ek_bins)*1e1_ |
 
-plots the calculated power spectrum
+: !!! code ""
+        Return
 
-`Parameters`
-* __k_bins (np.ndarray)__ - fourier mode values along x-axis
-* __Ek_bins (np.ndarray)__ -  energy as a function of k: E(k)
-* __kolmogorov (bool)__ - plots scaled Kolmogorov's -5/3 spectrum alongside the calculated one | True*
-* __kl_A (float)__ - scaling factor of Kolmogorov's law. Default _np.amax(self.Ek_bins)*1e1_
-
-`Return`
-
- spectrum plot
-
-`Return Type`
-
- matplotlib.axes object
+    | Type | Description |
+    | ---- | ----------- |
+    | matplotlib.axes object | spectrum plot | 
 
 ---
 
