@@ -9,7 +9,7 @@ hide:
 | Variable | Definition |
 | -------- | ---------- |
 | N        | # of Batches |
-|C<sub>in</sub> | # of input channels (i.e. features) |
+|C~in~ | # of input channels (i.e. features) |
 |D or D~b~ | Data or Batch depth (z) |
 |H or H~b~| Data or Batch height (y) |
 |W or W~b~| Data or Batch width (x) |
@@ -93,7 +93,7 @@ hide:
 !!! code ""
     <span style="color:var(--class-color)">CLASS</span>
     
-    `sapsan.lib.estimator.CNN3d`_`(loaders, config, model`_
+    `sapsan.lib.estimator.CNN3d`_`(loaders, config, model)`_
 
 : A model based on Pytorch's [3D Convolutional Neural Network]( /details/estimators/#convolution-neural-network-cnn)
 
@@ -730,7 +730,7 @@ hide:
 ### slice_of_cube
 
 !!! code ""
-    `sapsan.utils.shapes.slice_of_cube`_`(data: np.ndarray, feature: Optional[int] = None, n_slice: Optional[int] = None))`_
+    `sapsan.utils.shapes.slice_of_cube`_`(data: np.ndarray, feature: Optional[int] = None, n_slice: Optional[int] = None)`_
 
 : Select a slice of a cube (to plot later)
 

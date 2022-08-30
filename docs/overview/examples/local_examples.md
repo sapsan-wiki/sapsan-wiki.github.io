@@ -1,7 +1,7 @@
 # Built-in Examples
 ## Jupyter Notebook Examples
 
-You can run the included examples ([CNN](/reference/estimators/#convolution-neural-network-cnn), [PICAE](/reference/estimators/#physics-informed-convolutional-autoencoder-picae), or [PIMLTurb](/reference/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb) on 3D data, and [KRR](/reference/estimators/#kernel-ridge-regression-krr) on 2D data). To copy the examples, type:
+You can run the included examples ([CNN](/details/estimators/#convolution-neural-network-cnn), [PIMLTurb](/details/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb), or [PICAE](/details/estimators/#physics-informed-convolutional-autoencoder-picae) on 3D data, and [KRR](/details/estimators/#kernel-ridge-regression-krr) on 2D data). To copy the examples, type:
 
 ```
 sapsan get_examples
