@@ -10,12 +10,9 @@ hide:
 | -------- | ---------- |
 | N        | # of Batches |
 |C<sub>in</sub> | # of input channels (i.e. features) |
-|D | Data depth (z) |
-|H | Data height (y) |
-|W | Data width (x) |
-|D<sub>b</sub> | Batch depth (z) |
-|H<sub>b</sub> | Batch height (y) |
-|W<sub>b</sub> | Batch width (x) |
+|D or D~b~ | Data or Batch depth (z) |
+|H or H~b~| Data or Batch height (y) |
+|W or W~b~| Data or Batch width (x) |
 
 ## Train/Evaluate
 
@@ -110,7 +107,7 @@ hide:
     | `model` | class | the model itself - should not be adjusted | CNN3dModel() |    
 
 !!! code ""
-    `sapsan.lib.estimator.CNN3d.save`_`(path: str)`_`
+    `sapsan.lib.estimator.CNN3d.save`_`(path: str)`_
 
 : Saves model and optimizer states, as well as final epoch and loss
 
@@ -197,7 +194,7 @@ hide:
     | `model` | class | the model itself - should not be adjusted | PIMLTurbModel() |    
 
 !!! code ""
-    `sapsan.lib.estimator.PIMLTurb.save`_`(path: str)`_`
+    `sapsan.lib.estimator.PIMLTurb.save`_`(path: str)`_
 
 : Saves model and optimizer states, as well as final epoch and loss
 
@@ -467,6 +464,73 @@ hide:
     | Type | Description |
     | ---- | ----------- |
     | sklearn model | loaded model |
+
+## Torch Modules
+
+---
+
+### Gaussian
+
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.torch_modules.Gaussian`_`(sigma: int)`_
+
+: [3D] Applies a Guassian filter as a torch layer through a series of 3 separable 1D convolutions, utilizing [torch.nn.funcitonal.conv3d](https://pytorch.org/docs/stable/generated/torch.nn.Conv3d.html). CUDA is supported.
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `sigma` | int | standard deviation $\sigma$ for a Gaussian kernel | 2 |
+
+!!! code ""
+    `sapsan.lib.estimator.torch_modules.Gaussian.forward`_`(tensor: torch.tensor)`_
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `tensor` | torch.tensor | input torch tensor of shape  [N, C~in~, D~in~, H~in~, W~in~]  | |
+
+: !!! code ""
+        Return
+
+    | Type | Description |
+    | ---- | ----------- |
+    | torch.tensor | filtered 3D torch data |
+
+---
+
+### Interp1d
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.torch_modules.Interp1d`_`()`_
+
+: Linear 1D interpolation done in native PyTorch. CUDA is supported. Forked from [@aliutkus](https://github.com/aliutkus/torchinterp1d)
+
+!!! code ""
+    `sapsan.lib.estimator.torch_modules.Interp1d.forward`_`(x: torch.tensor, y: torch.tensor, xnew: torch.tensor, out: torch.tensor)`_
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `x` | torch.tensor | 1D or 2D tensor | |
+    | `y` | torch.tensor | 1D or 2D tensor; the length of `y` along its last dimension must be the same as that of `x` | |
+    | `xnew` | torch.tensor | 1D or 2D tensor of real values. `xnew` can only be 1D if ^^both^^ `x` and `y` are 1D. Otherwise, its length along the first dimension must be the same as that of whichever `x` and `y` is 2D. | |
+    | `out` | torch.tensor | Tensor for the output | If *None*, allocated automatically |
+
+: !!! code ""
+        Return
+
+    | Type | Description |
+    | ---- | ----------- |
+    | torch.tensor | interpolated tensor | 
 
 
 ## Data Loaders
