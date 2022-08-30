@@ -17,6 +17,7 @@ pip install mike
 
 # make sure the default alias is 'latest'
 mike deploy --push --update-aliases 0.0.0 latest
+mike set-default --push latest
 ```
 
 # Guidelines
