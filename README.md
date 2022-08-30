@@ -8,6 +8,17 @@ Plugin to open images on the same page by "zooming" it:
 To compile live on save
 `mkdocs serve`
 
+---
+
+For versioning:
+
+```shell
+pip install mike
+
+mike set-default --push latest
+mike deploy --push --update-aliases 0.0.0 latest
+```
+
 # Guidelines
 
 Even though mkdocs is pure markdown, there are many extensions and plugins included. For the ones used here, refer to [mkdocs.yml](/mkdocs.yml). Furthermore, reference MkDocs [Setup](https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/) and [Reference](https://squidfunk.github.io/mkdocs-material/reference/).

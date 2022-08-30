@@ -10,6 +10,7 @@ tags:
 
 # Cheat-Sheet
 
+`mike set-default --push latest`
 `mike deploy --push --update-aliases 0.1 latest`
 : publishes a new wiki version
 
