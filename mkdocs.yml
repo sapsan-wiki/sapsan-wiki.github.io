@@ -125,7 +125,6 @@ nav:
         - details/estimators.md
         - details/structure.md                      
       - Other: 
-        - other/community.md
-        - cheat_sheet.md        
+        - other/community.md       
     - API Reference:
         - api.md          
