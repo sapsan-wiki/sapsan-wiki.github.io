@@ -15,7 +15,7 @@ For versioning:
 ```shell
 pip install mike
 
-mike set-default --push latest
+# make sure the default alias is 'latest'
 mike deploy --push --update-aliases 0.0.0 latest
 ```
 
