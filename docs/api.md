@@ -1055,7 +1055,7 @@ hide:
 !!! code ""
     `sapsan.utils.plot.slice_plot`_`(series: List[np.ndarray], label: Optional[List[str]] = None, cmap = 'plasma', figsize: tuple, dpi: int, ax: matplotlib.axes)`_
 
-: Plot 2D spatial distributions (slices) of your target and prediction datasets
+: Plot 2D spatial distributions (slices) of your target and prediction datasets. Colorbar limits for both slices are set based on the minimum and maximum of the 2nd (target) provided dataset.
 
 : !!! code ""
         Parameters
