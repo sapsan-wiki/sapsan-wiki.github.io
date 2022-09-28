@@ -10,9 +10,9 @@ To compile live on save
 
 ---
 
-For versioning:
+# Versioning:
 
-```shell
+```bash
 pip install mike
 
 # make sure the default alias is 'latest'
