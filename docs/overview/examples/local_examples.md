@@ -24,6 +24,9 @@ The scripts for the pages you see ([welcome](https://github.com/pikarpov-LANL/Sa
 
 If you want to build your own demo, then look into [Examples.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/GUI/pages/Welcome.py) to get started. Ideally, you would only need to import your `Estimator`, `EstimatorConfig`, `EstimatorModel` and adjust the `run_experiment()` function, which has a nearly identical setup to a standard Sapsan's jupyter notebook interface.
 
+![Sapsan GUI](/assets/GUI_light.png#only-light){ align=center }
+![Sapsan GUI](/assets/GUI_dark.png#only-dark){ align=center }
+
 ## Sample Data
 
 The [data](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/data/cnn_krr/t0) for the CNN and KRR examples has been sourced from [JHTDB](http://turbulence.pha.jhu.edu/). Specifically the [Forced MHD Dataset](http://turbulence.pha.jhu.edu/Forced_MHD_turbulence.aspx) (1024<sup>3</sup>) has been used as a starting point.

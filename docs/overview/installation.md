@@ -5,7 +5,7 @@ search:
 # Installation
 
 ## Required
-
+---
 ### 1. Install PyTorch (prerequisite)
 
 Sapsan can be run on both cpu and gpu. Below are the requirements for each version
@@ -51,9 +51,10 @@ pip install -r requirements.txt
 !!! Info "Version"
     Make sure you are using the latest release version!
 
-<br/>
+
 
 ## Optional
+---
 ### Install Graphviz
 In order to create model graphs, Sapsan is using [graphviz](https://graphviz.org/). If you would like to utilize this functionality, then please install graphviz via:
 ```
@@ -63,8 +64,6 @@ or
 ```
 sudo apt-get install graphviz
 ```
-
-<br/>
 
 ### Install Docker
 
@@ -88,8 +87,10 @@ make run-container
 ```
 a Jupyter notebook will be launched at `localhost:7654`
 
-## Troubleshooting
 
+
+## Troubleshooting
+---
 ### libGL.so error
 If you get the following error:
 ```shell

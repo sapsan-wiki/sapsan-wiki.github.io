@@ -1200,7 +1200,7 @@ $$
 
     | Name | Type | Discription | Default |
     | ---- | ---- | ----------- | ------- |    
-    | `u` | np.ndarray | input velocity in 3D - [axis, D, H, W] | |
+    | `u` | np.ndarray | input velocity <br> (first dimension must be the axis=[1, 2, or 3], <br> e.g. the shape for 3D velocity should be: [axis, D, H, W]) | |
 
 !!! code ""
     `sapsan.utils.physics.PowerSpectrum.calculate()`

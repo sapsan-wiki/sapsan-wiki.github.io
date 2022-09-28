@@ -8,7 +8,7 @@ search:
 Sapsan has several models in its arsenal to get started.
 
 ## Convolution Neural Network (CNN)
-
+---
 ![CNN Model Graph](../assets/cnn_model_graph.png#only-light){ align=right : style="width:200px"}
 ![CNN Model Graph](../assets/cnn_model_graph_dark.png#only-dark){ align=right : style="width:200px"}
 
@@ -27,7 +27,7 @@ where _D_in_ is the input dimension.
 As final layers, [ReLU](https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html) activation function is used and the data is [linearized](https://pytorch.org/docs/stable/generated/torch.nn.Linear.html). An example model graph for the input data with the spatial dimensions of [16, 16, 16] split into 8 batches is provided below.
 
 ## Physics-Informed CNN for Turbulence Modeling (PIMLTurb)
-
+---
 ![PIMLturb Model Graph](../assets/pimlturb_model_graph.png#only-light){ align=right : style="width:200px"}
 ![PIMLturb Model Graph](../assets/pimlturb_model_graph_dark.png#only-dark){ align=right : style="width:200px"}
 
@@ -46,7 +46,7 @@ For the example included in Sapsan, the data included is from the same dataset a
 ![PIMLturb Model Schematic](../assets/pimlturb_model_schematic_dark.png#only-dark){style="width:400px"}
 
 ## Physics-Informed Convolutional Autoencoder (PICAE)
-
+---
 Example: [picae_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/picae_example.ipynb) <br>
 Estimator: [picae_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/picae/picae_estimator.py)
 
@@ -61,7 +61,7 @@ Thus, the latter force the CAE portion of the model to adjust to the curl of $A$
 ![Physics-Informed CAE](../assets/PICAE.png){style="width:600px"}
 
 ## Kernel Ridge Regression (KRR)
-
+---
 Example: [krr_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/krr_example.ipynb) <br>
 Estimator: [krr_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/krr/krr_estimator.py)
 

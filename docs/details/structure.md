@@ -9,25 +9,21 @@ Sapsan is integrated with MLflow to provide for easy and automatic tracking duri
 
 To provide flexibility and scalability of the project a number of abstraction classes were introduced. Core abstractions include:
 
-|Core Abstraction|Description|
-|-----|-----|
-|Experiment | main abstraction which encapsulates execution of algorithms, experiments, tests, etc. |
-|Algorithm | a base class which all models are extended from |
-|BaseAlgorithm| base class for all algorithms that do not need to be trained and has only run method |
-|Estimator| an algorithm that has *train* and *predict* methods, like regression model or classifier|
-|Dataset|high level wrapped over dataset loaders|
-
-<br/>
+| Core Abstraction | Description                                                                              |
+| ---------------- | ---------------------------------------------------------------------------------------- |
+| Experiment       | main abstraction which encapsulates execution of algorithms, experiments, tests, etc.    |
+| Algorithm        | a base class which all models are extended from                                          |
+| BaseAlgorithm    | base class for all algorithms that do not need to be trained and has only run method     |
+| Estimator        | an algorithm that has *train* and *predict* methods, like regression model or classifier |
+| Dataset          | high level wrapped over dataset loaders                                                  |
 
 Next Sapsan has utility abstractions responsible for all-things tracking:
 
-|Utility Abstractions |Description|
-|-----|-----|
-|Metric|a single instance of metric emitted during the experiment run|
-|Parameter|a parameter used in the experiment|
-|Artifact|artifacts for an algorithm (model weights, images, etc.)|
-|TrackingBackend|adapter for tracking systems to save metrics, parameters, and artifact|
-
-<br/>
+| Utility Abstractions | Description                                                            |
+| -------------------- | ---------------------------------------------------------------------- |
+| Metric               | a single instance of metric emitted during the experiment run          |
+| Parameter            | a parameter used in the experiment                                     |
+| Artifact             | artifacts for an algorithm (model weights, images, etc.)               |
+| TrackingBackend      | adapter for tracking systems to save metrics, parameters, and artifact |
 
 The project is built around those abstractions to make it easier to reason about. In order to extend the project with new models/algorithms, the user will inherit from Estimator(or BaseAlgorithm) and implement required methods.

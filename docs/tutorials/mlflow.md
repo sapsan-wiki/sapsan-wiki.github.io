@@ -33,31 +33,30 @@ Every _Train_ checks for other active runs, terminates them, and starts a new ru
 
 Evaluation runs include the training model parameters and metrics to make it easier to parse through. Here is a complete list of what is tracked by default after running _Train_ or _Evaluate_ loop.
 
-|Parameter|Train|Evaluate|
-|-----| :---: | :---: |
-|Everything passed to `ModelConfig()` <br/> (including new parameters passed to `kwargs`) | :material-check-circle: | :material-check-circle:|
-|`model - {parameter}` - device, logdir, lr, min_delta, <br/> min_lr, n_epochs, patience <br/> | :material-check-circle: | :material-check-circle:|
-|`data - {parameter}` - features, features_label, <br/> target, target_label, axis, path, path, shuffle | :material-check-circle: | :material-check-circle:|
-|`chkpnt - {parameter}` - initial_size, sample to size, <br/> batch_size, batch_num, time, time_granularity <br/> | :material-check-circle: | :material-check-circle:|
+| Parameter                                                                                            |          Train          |        Evaluate         |
+| ---------------------------------------------------------------------------------------------------- | :---------------------: | :---------------------: |
+| Everything passed to `ModelConfig()`  (including new parameters passed to `kwargs`)                  | :material-check-circle: | :material-check-circle: |
+| `model - {parameter}` - device, logdir, lr, min_delta,  min_lr, n_epochs, patience                   | :material-check-circle: | :material-check-circle: |
+| `data - {parameter}` - features, features_label, target, target_label, axis, path, path, shuffle     | :material-check-circle: | :material-check-circle: |
+| `chkpnt - {parameter}` - initial_size, sample to size, batch_size, batch_num, time, time_granularity | :material-check-circle: | :material-check-circle: |
 
 
 Since _Train_ metrics are recorded for _Evaluate_ runs, they are prefixed as `train - {metric}`. Subsequently, all _Evaluate_ metrics are written as `eval - {metric}`
 
-Metrics|Train|Evaluate|
-|-----| :---: | :---: |
-|`eval - MSE Loss` - Mean Squared Error (if the target is provided)| | :material-check-circle: |
-|`eval - KS Stat` - Kolmogorov-Smirnov Statistic (if the target is provided)| | :material-check-circle: |
-|`train - final epoch` - final training epoch| :material-check-circle: | :material-check-circle: |
-|All model metrics `model.metrics()` <br/> (provided by Catalyst and PyTorch) | :material-check-circle: | :material-check-circle: |
-|Runtime| :material-check-circle: | :material-check-circle: |
-
-|Artifacts|Train|Evaluate|
-|-----| :---: | :---: |
-|`model_details.txt` - model layer init & optimizer settings | :material-check-circle: | |
-|`model_forward.txt` - Model.forward() function| :material-check-circle: | |
-|`runtime_log.html` - loss vs. epoch training progress| :material-check-circle: | |
-|`pdf_cdf.png` - Probability Density Function (PDF) & <br/> Cummulative Distribution Function (CDF) plots| | :material-check-circle: |
-|`slices_plot.png` - 2D Spatial Distribution (slice snapshots)| | :material-check-circle: |
+| Metrics                                                                                            |          Train          |        Evaluate         |
+| -------------------------------------------------------------------------------------------------- | :---------------------: | :---------------------: |
+| `eval - MSE Loss` - Mean Squared Error (if the target is provided)                                 |                         | :material-check-circle: |
+| `eval - KS Stat` - Kolmogorov-Smirnov Statistic (if the target is provided)                        |                         | :material-check-circle: |
+| `train - final epoch` - final training epoch                                                       | :material-check-circle: | :material-check-circle: |
+| All model metrics `model.metrics()` (provided by Catalyst and PyTorch)                             | :material-check-circle: | :material-check-circle: |
+| Runtime                                                                                            | :material-check-circle: | :material-check-circle: |
+|                                                                                                    |                         |                         |
+| **Artifacts **                                                                                     |        **Train**        |      **Evaluate**       |
+| `model_details.txt` - model layer init & optimizer settings                                        | :material-check-circle: |                         |
+| `model_forward.txt` - Model.forward() function                                                     | :material-check-circle: |                         |
+| `runtime_log.html` - loss vs. epoch training progress                                              | :material-check-circle: |                         |
+| `pdf_cdf.png` - Probability Density Function (PDF) & Cummulative Distribution Function (CDF) plots |                         | :material-check-circle: |
+| `slices_plot.png` - 2D Spatial Distribution (slice snapshots)                                      |                         | :material-check-circle: |
 
 ## Adding extra parameters
 ### Before Training
