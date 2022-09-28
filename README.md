@@ -12,6 +12,7 @@ To compile live on save
 
 # Versioning:
 
+Consistency is TBD.
 ```bash
 pip install mike
 
