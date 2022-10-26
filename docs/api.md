@@ -846,7 +846,7 @@ hide:
     | ---- | ---- | ----------- | ------- |    
     | `name` | str | name under which to record the experiment | "experiment" |
     | `host` | str | host of mlflow ui | "localhost" |
-    | `port` | int | port of mlflow ui | 9000 |
+    | `port` | int | port of mlflow ui | 5000 |
     
 !!! code ""
     `sapsan.lib.backends.mlflow.MLflowBackend.start_ui`_`()`_

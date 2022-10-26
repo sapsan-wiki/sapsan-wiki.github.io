@@ -10,7 +10,7 @@ search:
 ### Starting MLflow Server
 `mlflow ui` server will <ins>automatically</ins> start locally if a designated port is open. If not, Sapsan assumes the `mLflow ui` server is already running on that local port and will direct mlflow to write to it. Also you can start `mlflow ui` manually via:
 ```bash
-mlflow ui --host localhost --port 9000
+mlflow ui --host localhost --port 5000
 ```
 
 ### Structure

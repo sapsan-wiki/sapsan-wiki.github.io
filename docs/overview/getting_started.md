@@ -50,6 +50,9 @@ In the aim to provide a user-friendly experience, best suited for demonstrations
 
 Lastly, Sapsan can be tried out in the demo-mode directly on the website - [sapsan.app](https://sapsan.app). There, one has limited editing capabilities but can explore the hyper-parameters and get a general understanding of what the framework is capable of.
 
+!!! bug "Offline"
+    [sapsan.app](https://sapsan.app) is temporarily offline while transitioning to a new hosting service. Please refer to [local GUI example](/overview/examples/local_examples/#gui-examples) for the demo.
+
 ### Running GUI
 In order to run it type in the following and follow the instructions - the interface will be opened in your browser
 ```
