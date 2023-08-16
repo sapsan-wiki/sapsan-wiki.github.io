@@ -45,8 +45,8 @@ For the example included in Sapsan, the data included is from the same dataset a
 
 ## Physics-Informed CNN for 1D Turbulence Modeling (PIMLTurb1D)
 ---
-![PIMLturb1D Model Graph](../assets/pimlturb_1d.png#only-light){ align=right : style="width:200px"}
-![PIMLturb1D Model Graph](../assets/pimlturb_1d_dark.png#only-dark){ align=right : style="width:200px"}
+![PIMLturb1D Model Graph](../assets/pimlturb1d_model_graph.png#only-light){ align=right : style="width:200px"}
+![PIMLturb1D Model Graph](../assets/pimlturb1d_model_graph_dark.png#only-dark){ align=right : style="width:200px"}
 
 Example: [pimlturb_1d_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/pimlturb_1d_example.ipynb) <br>
 Estimator: [pimlturb_1d_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pimlturb_1d/pimlturb_1d_estimator.py)
