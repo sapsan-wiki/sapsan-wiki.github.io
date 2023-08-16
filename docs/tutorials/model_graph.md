@@ -3,9 +3,6 @@
 ## How to construct a graph of the model
 This a page describing in detail how to construct nice-looking graphs of your model automatically.
 
-!!! bug
-    Temporarily doesn't work due to a compatability issue between ONNX and PyTorch>=1.12.0
-
 ## Example
 
 ```python
@@ -39,13 +36,16 @@ Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 
 `transforms` allow you to adjust the graph to your liking. For example, they can allow you to combine layers to be displayed in a single box, instead of separate. Please refer to the [API of model_graph](/api/#model_graph) to see what options are available for transformations.
 
+!!! Info
+    Order of transforms in the list matters!
+
 ## Limitations
 
 * `model` input param must be a PyTorch, TensorFlow, or Keras-with-TensorFlow-backend model.
 
 ## API for model_graph
 
-`sapsan.utils.plot.model_graph(<i>model, shape: np.array, transforms</i>)`
+`sapsan.utils.plot.model_graph`_`(model, shape: np.array, transforms)`_
 
 : Creates a graph of the ML model (needs graphviz to be installed). The method is based on [hiddenlayer](https://github.com/waleedka/hiddenlayer) originally written by Waleed Abdulla.
 
@@ -53,7 +53,7 @@ Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 
 : model (object) - initialized pytorch or tensorflow model
 : shape (np.array) - shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1
-: transforms (list[methods]) - a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*). Default:
+: transforms (list[methods]) - a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*), defined in [transforms.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/utils/hiddenlayer/transforms.py). Default:
 ```python
 > import sapsan.utils.hiddenlayer as hl
 > transforms = [
@@ -71,7 +71,7 @@ Considering that `shape_x = (8,1,8,8,8)`, the following graph will be produced:
 
 `Return`
 
-: graph of a model
+: SVG graph of a model
 
 `Return type`
 

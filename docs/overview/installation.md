@@ -56,7 +56,11 @@ pip install -r requirements.txt
 ## Optional
 ---
 ### Install Graphviz
-In order to create model graphs, Sapsan is using [graphviz](https://graphviz.org/). If you would like to utilize this functionality, then please install graphviz via:
+
+!!! Info
+    pip version of graphviz that installs with Sapsan is not enough!
+
+In order to create model graphs, Sapsan is using [graphviz](https://graphviz.org/). If you would like to utilize this functionality, pip graphviz wrapper is not enough. To install the core package for graphviz:
 ```
 conda install graphviz
 ```

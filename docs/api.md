@@ -476,7 +476,7 @@ hide:
     
     `sapsan.lib.estimator.torch_modules.Gaussian`_`(sigma: int)`_
 
-: [3D] Applies a Guassian filter as a torch layer through a series of 3 separable 1D convolutions, utilizing [torch.nn.funcitonal.conv3d](https://pytorch.org/docs/stable/generated/torch.nn.Conv3d.html). CUDA is supported.
+: [1D,3D] Applies a Guassian filter as a torch layer through a series of 3 separable 1D convolutions, utilizing [torch.nn.funcitonal.conv3d](https://pytorch.org/docs/stable/generated/torch.nn.Conv3d.html). CUDA is supported.
 
 : !!! code ""
         Parameters
@@ -1124,7 +1124,7 @@ hide:
     | ---- | ---- | ----------- | ------- |    
     | `model` | object | initialized pytorch or tensorflow model | |
     | `shape` | np.array | shape of the input array in the form [N, C<sub>in</sub>, D<sub>b</sub>, H<sub>b</sub>, W<sub>b</sub>], where C<sub>in</sub>=1 | |
-    | <nobr>`transforms`</nobr> | list[methods] | a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*) | <nobr>_See below_ :material-arrow-down-right:</nobr>|    
+    | <nobr>`transforms`</nobr> | list[methods] | a list of hiddenlayer transforms to be applied (*Fold, FoldId, Prune, PruneBranch, FoldDuplicates, Rename*), defined in [transforms.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/utils/hiddenlayer/transforms.py) | <nobr>_See below_ :material-arrow-down-right:</nobr>|    
 
 : ??? cite "Default Parameters"
         ```python
@@ -1147,7 +1147,7 @@ hide:
 
     | Type | Description |
     | ---- | ----------- |
-    | graphviz.Digraph object | graph of a model | 
+    | graphviz.Digraph object | SVG graph of a model | 
 
 
 ## Physics
