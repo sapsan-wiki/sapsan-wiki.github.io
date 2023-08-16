@@ -7,3 +7,5 @@
 *[JHTDB]: Johns Hopkins Turbulence Database
 *[ReLU]: Rectified Linear Unit
 *[CLI]: Command Line Interface
+*[ML]: Machine Learning
+*[CCSN]: Core-Collapse Supernova

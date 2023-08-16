@@ -247,9 +247,90 @@ hide:
     | `lr` | float | learning rate | 1e-3 |
     | `min_lr` | float | a lower bound of the learning rate  for [ReduceLROnPlateau](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html) | lr\*1e-2 |
     | `device` | str | specify the device to run the model on | cuda (or switch to cpu)
-    | <nobr>`loader_key`</nobr> | str | the loader to use for early stop: *train* or *valid* | first loader provided*, which is usually 'train' |    
-    | <nobr>`metric_key`</nobr> | str | the metric to use for early stop | 'loss' |    
-    | `ddp` | bool | turn on Distributed Data Parallel (DDP) in order to distribute the data and train the model across multiple GPUs.  This is passed to Catalyst to activate the `ddp` flag in `runner` (see more [Distributed Training Tutorial](https://catalyst-team.github.io/catalyst/tutorials/ddp.html); the `runner` is set up in [pytorch_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pytorch_estimator.py)). **Note: doesn't support jupyter notebooks - prepare a script!** | False |
+
+---
+
+### PIMLTurb1D
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.PIMLTurb1D`_`(activ, loss, loaders, ks_stop, ks_frac, ks_scale, l1_scale, l1_beta, sigma, config, model)`_
+
+: Physics-informed machine learning model to predict Reynolds-like stress tensor, $Re$, for turbulence modeling. Learn more on the wiki: [PIMLTurb]( /details/estimators/#physics-informed-cnn-for-1d-turbulence-modeling-pimlturb1d)
+
+: A custom loss function was developed for this model combining spatial (SmoothL1) and statistical (Kolmogorov-Smirnov) losses.
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- | 
+    | `activ` | str | activation function to use from PyTorch | Tanhshrink |
+    | `loss` | str | loss function to use; accepts only custom | SmoothL1_KSLoss |
+    | `loaders` | dict | contains input and target data (loaders['train'], loaders['valid']). Datasets themselves have to be torch.tensor(s) |  |    
+    | `ks_stop` | float | early-stopping condition based on the KS loss value alone | 0.1 |
+    | `ks_frac` | float | fraction the KS loss contributes to the total loss | 0.5 |
+    | `ks_scale` | float | scale factor to prioritize KS loss over SmoothL1 (should not be altered) | 1 |
+    | `l1_scale` | float | scale factor to prioritize SmoothL1 loss over KS | 1 |
+    | `l1_beta` | float | $beta$ threshold for smoothing the L1 loss | 1 |
+    | `sigma` | float | $sigma$ for the last layer of the network that performs a filtering operation using a Gaussian kernel | 1 |        
+    | `config` | class | configuration to use for the model | PIMLTurb1DConfig() |
+    | `model` | class | the model itself - should not be adjusted | PIMLTurb1DModel() |    
+
+!!! code ""
+    `sapsan.lib.estimator.PIMLTurb1D.save`_`(path: str)`_
+
+: Saves model and optimizer states, as well as final epoch and loss
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `path` | str | save path of the model and its config parameters, `{path}/model.pt` and `{path}/params.json` respectively |  |
+
+!!! code ""    
+    `sapsan.lib.estimator.PIMLTurb1D.load`_`(path: str, estimator, load_saved_config = False)`_
+
+: Loads model and optimizer states, as well as final epoch and loss
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `path` | str | save path of the model and its config parameters, `{path}/model.pt` and `{path}/params.json` respectively |  |    
+    | `estimator` | estimator | need to provide an initialized model for which to load the weights. The estimator can include a new config setup, changing `n_epochs` to keep training the model further. |  |
+    | `load_saved_config` | bool | updates config parameters from `{path}/params.json`. | False |
+
+: !!! code ""
+        Return
+
+    | Type | Description |
+    | ---- | ----------- |
+    | pytorch model | loaded model | 
+
+---
+
+!!! code ""
+    <span style="color:var(--class-color)">CLASS</span>
+    
+    `sapsan.lib.estimator.PIMLTurb1DConfig`_`(n_epochs, patience, min_delta, logdir, lr, min_lr, *args, **kwargs)`_
+
+: Configuration for the PIMLTurb1D - based on pytorch (catalyst is not used)
+
+: !!! code ""
+        Parameters
+
+    | Name | Type | Discription | Default |
+    | ---- | ---- | ----------- | ------- |    
+    | `n_epochs` | int | number of epochs | 1 |    
+    | `patience` | int | number of epochs with no improvement after which training will be stopped _(not used)_ | 10 |
+    | `min_delta` | float | minimum change in the monitored metric to qualify as an improvement, i.e. an absolute change of less than min_delta, will count as no improvement _(not used)_ | 1e-5 |
+    | `log_dir` | int | path to store the logs| ./logs/ |
+    | `lr` | float | learning rate | 1e-3 |
+    | `min_lr` | float | a lower bound of the learning rate  for [ReduceLROnPlateau](https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html) | lr\*1e-2 |
+    | `device` | str | specify the device to run the model on | cuda (or switch to cpu)
 
 ---
 

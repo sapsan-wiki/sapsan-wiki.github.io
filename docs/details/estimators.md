@@ -49,7 +49,7 @@ For the example included in Sapsan, the data included is from the same dataset a
 ![PIMLturb1D Model Graph](../assets/pimlturb_1d_dark.png#only-dark){ align=right : style="width:200px"}
 
 Example: [pimlturb_1d_example.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/pimlturb_1d_example.ipynb) <br>
-Estimator: [pimlturb_1d_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pimlturb/pimlturb_1d_estimator.py)
+Estimator: [pimlturb_1d_estimator.py](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/lib/estimator/pimlturb_1d/pimlturb_1d_estimator.py)
 
 The estimator is based on _Machine Learning for Core-Collapse Supernovae:
 1D Models_ by P.I.Karpov et al. (2023, in prep), and it is similar to the 3D implementation above. The model was adopted for 1D data using 1D convolutional network with some additions to enforce a realizability constraint ($Re_{ii} > 0$, where $Re$ is the Reynolds stress tensor and $i$ is the component index) and a smoothing Gaussian layer.
