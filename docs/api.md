@@ -984,6 +984,16 @@ hide:
 : Logs an artifact (any saved file such, e.g. .png, .txt)
 
 !!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.log_model`_`()`_
+
+: Log a PyTorch model as an MLflow artifact for the current run. Corresponds to [mlflow.pytorch.log_model()](https://mlflow.org/docs/latest/python_api/mlflow.pytorch.html#mlflow.pytorch.log_model)
+
+!!! code ""
+    `sapsan.lib.backends.mlflow.MLflowBackend.load_model`_`()`_
+
+: Load a PyTorch model from a local file or a run. Corresponds to [mlflow.pytorch.load_model()](https://mlflow.org/docs/latest/python_api/mlflow.pytorch.html#mlflow.pytorch.load_model)
+
+!!! code ""
     `sapsan.lib.backends.mlflow.MLflowBackend.close_active_run`_`()`_
 
 : Closes all active MLflow runs
