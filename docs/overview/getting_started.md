@@ -16,7 +16,7 @@ sapsan test
 ```
 
 ### Running Examples
-To get started and familiarize yourself with the Jupyter Notebook interface, feel free to run the included examples ([CNN](/details/estimators/#convolution-neural-network-cnn), [PICAE](/details/estimators/#physics-informed-convolutional-autoencoder-picae), or [PIMLTurb](/details/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb) on 3D data, and [KRR](/details/estimators/#kernel-ridge-regression-krr) on 2D data). To copy the examples, type:
+To get started and familiarize yourself with the Jupyter Notebook interface, feel free to run the included examples ([CNN](/details/estimators/#convolution-neural-network-cnn), [PICAE](/details/estimators/#physics-informed-convolutional-autoencoder-picae), [PIMLTurb](/details/estimators/#physics-informed-cnn-for-turbulence-modeling-pimlturb) on 3D data, or [PIMLTurb1D](/details/estimators/#physics-informed-cnn-for-1d-turbulence-modeling-pimlturb) on 1D data, and [KRR](/details/estimators/#kernel-ridge-regression-krr) on 2D data). There is also a notebook with examples of the plotting and ML network visualization. To copy the examples, type:
 
 ```
 sapsan get_examples

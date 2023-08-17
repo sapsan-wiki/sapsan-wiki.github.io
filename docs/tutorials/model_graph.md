@@ -5,13 +5,14 @@ This a page describing in detail how to construct nice-looking graphs of your mo
 
 ## Example
 
+There is a `model_graph` example in the [plotting_examples.ipynb](https://github.com/pikarpov-LANL/Sapsan/blob/master/sapsan/examples/plotting_examples.ipynb) notebook (you can get all examples by running `sapsan get_examples`). That being said, a brief overview of how it works is below:
+
 ```python
 from sapsan.lib.estimator.cnn.cnn3d_estimator import CNN3d, CNN3dConfig
 from sapsan.utils.plot import model_graph
 from sapsan.lib.data import get_loader_shape
 
-# load your data into loaders
-
+# load your data into torch loaders
 estimator = CNN3d(config = CNN3dConfig(),
                   loaders = loaders)
 

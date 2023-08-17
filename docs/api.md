@@ -1145,7 +1145,7 @@ hide:
     | ---- | ---- | ----------- | ------- |    
     | `series` | List[np.ndarray] | input datasets | |
     | `label` | List[str] | list of names to use as labels in the legend | None |
-    | `cmap` | str | matplotlib colormap to use | 'plasma' |
+    | `cmap` | str | matplotlib colormap to use | 'viridis' |
     | `figsize` | tuple | figure size as passed to matplotlib figure | (6,6) |
     | `dpi` | int | resolution of the figure | 60 |
     | `ax` | matplotlib.axes | axes object to use for plotting (if you want to define your own figure and subplots) <br> {==WARNING: only works if a ^^single^^ image is supplied to `slice_plot()`, otherwise will be ignored==} | None - creates a separate figure |
