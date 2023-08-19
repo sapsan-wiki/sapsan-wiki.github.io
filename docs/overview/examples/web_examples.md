@@ -8,8 +8,8 @@ Proceed via the link [cnn_example.ipynb on google-colab](https://colab.research.
 
 ## GUI Web Demo
 
-!!! bug "Offline"
-    [sapsan.app](https://sapsan.app) is temporarily offline while transitioning to a new hosting service. Please refer to [local GUI example](/overview/examples/local_examples/#gui-examples) for the demo.
+<!-- !!! bug "Offline"
+    [sapsan.app](https://sapsan.app) is temporarily offline while transitioning to a new hosting service. Please refer to [local GUI example](/overview/examples/local_examples/#gui-examples) for the demo. -->
 
 Sapsan's GUI is powered by [streamlit](https://streamlit.io/). A short demo with the CNN example has been setup on google cloud. 
 
